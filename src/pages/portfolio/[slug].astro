@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Heading } from '../../components/atoms/text/Heading';
+import { HeadingH2, HeadingH3 } from '../../components/atoms/text/HeadingMdx';
+import { CTASection } from '../../components/organisms/sections/CTASection';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('portfolio');
+  return projects.map((project) => ({
+    params: { slug: project.id.replace(/\.(md|mdx)$/, '') },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const mdxComponents = {
+  h2: HeadingH2,
+  h3: HeadingH3,
+};
+---
+
+<Layout title={`${project.data.title} | Portfolio`}>
+  <main class="bg-white min-h-screen">
+    <header class="w-full px-8 pt-32 pb-16 flex flex-col items-center text-center">
+      <span class="text-amber-700 text-sm font-bold uppercase tracking-widest mb-4">{project.data.category}</span>
+      <Heading level={1} variant="display">{project.data.title}</Heading>
+      <p class="mt-6 text-neutral-400 text-xl max-w-2xl">
+        {project.data.description}
+      </p>
+    </header>
+
+    <div class="w-full max-w-[1200px] px-8 pb-32 mx-auto">
+      <img 
+        class="w-full h-auto rounded-[40px] shadow-2xl" 
+        src={project.data.image} 
+        alt={project.data.title}
+      />
+
+      <div class="mt-20 max-w-[800px] mx-auto flex flex-col gap-4 text-neutral-600 text-lg leading-relaxed">
+        <Content components={mdxComponents} />
+      </div>
+    </div>
+
+    <CTASection client:load />
+
+    <footer class="w-full py-12 border-t border-gray-200 flex flex-col justify-start items-center">
+      <p class="text-center text-neutral-400 text-base font-normal font-sans leading-6">
+        © 2024 Design Agency. All rights reserved.
+      </p>
+    </footer>
+  </main>
+</Layout>

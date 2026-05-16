@@ -1,17 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ContactForm } from './ContactForm';
 
-const meta = {
+const meta: Meta<typeof ContactForm> = {
   title: 'Organisms/Forms/ContactForm',
   component: ContactForm,
   parameters: {
-    layout: 'padded',
-    backgrounds: { default: 'light' }
+    layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof ContactForm>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof ContactForm>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {},
+};

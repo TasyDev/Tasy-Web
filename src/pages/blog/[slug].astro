@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { BlogPostHero } from '../../components/molecules/sections/BlogPostHero';
+import { HeadingH2, HeadingH3 } from '../../components/atoms/text/HeadingMdx';
+import { BlockquoteMdx } from '../../components/atoms/text/BlockquoteMdx';
+import { ShareButtons } from '../../components/molecules/contact/ShareButtons';
+import { CTASection } from '../../components/organisms/sections/CTASection';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const mdxComponents = {
+  h2: HeadingH2,
+  h3: HeadingH3,
+  blockquote: BlockquoteMdx,
+};
+---
+
+<Layout title={`${post.data.title} | Blog`}>
+  <main class="bg-white min-h-screen">
+    <BlogPostHero 
+      client:load
+      category={post.data.category}
+      date={post.data.date}
+      title={post.data.title}
+      subtitle={post.data.description}
+      author={post.data.author}
+    />
+
+    <div class="w-full max-w-[1000px] px-8 pb-16 mx-auto">
+      <img 
+        class="w-full h-auto object-cover rounded-3xl shadow-2xl" 
+        src={post.data.image} 
+        alt={post.data.title}
+      />
+    </div>
+
+    <article class="w-full max-w-[800px] px-8 pb-16 mx-auto flex flex-col gap-6 text-neutral-900/80 text-lg font-sans leading-7">
+      <Content components={mdxComponents} />
+    </article>
+
+    <ShareButtons client:load tags={[post.data.category]} />
+    <CTASection client:load />
+
+    <footer class="w-full py-12 border-t border-gray-200 flex flex-col justify-start items-center">
+      <p class="text-center text-neutral-400 text-base font-normal font-sans leading-6">
+        © 2024 Design Agency. All rights reserved.
+      </p>
+    </footer>
+  </main>
+</Layout>

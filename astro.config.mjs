@@ -5,9 +5,14 @@ import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import mdx from '@astrojs/mdx';
+
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  site: 'https://tasy.work/', // TODO: Replace with your actual domain
+  integrations: [react(), mdx(), sitemap()],
 
   vite: {
     plugins: [tailwindcss()]
