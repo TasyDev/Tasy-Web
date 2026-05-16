@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Spacing" />
+
+# Spacing
+Spacing tokens used as padding/gaps in the Figma landing page.
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Token</th>
+      <th align="left">Value</th>
+      <th align="left">Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['--space-16', 'var(--space-16)'],
+      ['--space-24', 'var(--space-24)'],
+      ['--space-32', 'var(--space-32)'],
+      ['--space-80', 'var(--space-80)'],
+      ['--space-96', 'var(--space-96)'],
+    ].map(([token, value]) => (
+      <tr key={token}>
+        <td><code>{token}</code></td>
+        <td><code>{value}</code></td>
+        <td>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ width: 120, height: 10, background: 'rgba(0,0,0,0.08)', borderRadius: 9999 }}>
+              <div style={{ width: `var(${token})`, height: 10, background: 'var(--color-brand)', borderRadius: 9999 }} />
+            </div>
+            <code>{token.replace('--space-', '')}px</code>
+          </div>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+

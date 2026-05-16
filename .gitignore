@@ -29,3 +29,5 @@ storybook-static
 .codex
 
 .npm-cache/
+
+.antigravity
