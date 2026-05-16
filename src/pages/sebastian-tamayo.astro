@@ -1,0 +1,107 @@
+---
+import React from 'react';
+import Layout from '../layouts/Layout.astro';
+import { ContentWithImageSection } from '../components/organisms/sections/ContentWithImageSection';
+import { TimelineSection } from '../components/organisms/sections/TimelineSection';
+import { PortfolioSection } from '../components/organisms/sections/PortfolioSection';
+import { ContactSection } from '../components/organisms/sections/ContactSection';
+
+import { HiDocumentText, HiLink } from "react-icons/hi2";
+
+// --- Hero Data ---
+const heroSubtitle = "Hey, I am <br/><span class='text-amber-700'>Alex Jenkins</span>";
+const heroParagraph = "I am a passionate digital designer and frontend developer, specializing in creating premium, high-conversion interfaces for modern brands. My approach blends aesthetic precision with scalable architecture.";
+
+const heroButtons = [
+  { 
+    label: "Download CV", 
+    variant: "primary" as const, 
+    iconName: "cv" as const
+  },
+  { 
+    label: "View LinkedIn", 
+    variant: "outline" as const, 
+    iconName: "linkedin" as const
+  }
+];
+
+const heroImageClass = "w-full max-w-[509px] h-full max-h-[532px] left-[42px] top-[-11px] absolute origin-top-left rotate-6 bg-amber-700/5 rounded-[40px] blur-[20px]";
+
+// --- Journey Data ---
+const journeySteps = [
+  { number: '2018', title: 'Design Intern', description: 'Started exploring digital design fundamentals.' },
+  { number: '2019', title: 'Junior Designer', description: 'Worked on various UI/UX projects for local startups.' },
+  { number: '2021', title: 'Senior UI/UX', description: 'Led product design for a major fintech platform.' },
+  { number: '2022', title: 'Art Director', description: 'Managed visual strategy for a top-tier creative agency.' },
+  { number: '2024', title: 'Independent', description: 'Launched my own studio focusing on premium brands.' }
+];
+
+// --- Portfolio Data ---
+const portfolioProjects = [
+  { title: "Fintech Dashboard", description: "A modern, clean SaaS dashboard for financial management.", imageSrc: "https://placehold.co/800x600" },
+  { title: "E-commerce Platform", description: "Minimalist fashion e-commerce website with seamless checkout.", imageSrc: "https://placehold.co/800x600" },
+  { title: "Brand Identity", description: "Premium stationery mockup and brand identity presentation.", imageSrc: "https://placehold.co/800x600" },
+  { title: "Healthcare App", description: "User-centric mobile application for remote health monitoring.", imageSrc: "https://placehold.co/800x600" },
+  { title: "Editorial Blog", description: "High-contrast editorial layout for a modern design publication.", imageSrc: "https://placehold.co/800x600" },
+  { title: "Marketing Site", description: "High-conversion landing page with bold 3D geometry.", imageSrc: "https://placehold.co/800x600" }
+];
+
+// --- Contact Data ---
+const contactTitle = "Let's Build Something <br/>Great";
+const contactDescription = "Ready to elevate your brand? Reach out to me to start the conversation.";
+---
+
+<Layout>
+  <main class="w-full relative flex flex-col justify-start items-center bg-white overflow-x-hidden">
+
+    <!-- Hero / Intro -->
+    <div class="w-full pt-12 lg:pt-24">
+      <ContentWithImageSection 
+        imageSrc="https://placehold.co/448x560"
+        subtitle={heroSubtitle}
+        paragraph1={heroParagraph}
+        buttons={heroButtons}
+        imageClassName={heroImageClass}
+      />
+    </div>
+
+    <!-- Journey -->
+    <section class="w-full py-16 lg:py-32 flex justify-center overflow-hidden bg-gradient-to-b from-white via-amber-700/5 to-neutral-100">
+      <TimelineSection 
+        overline="MY JOURNEY"
+        title="Evolution and Experience"
+        description="A brief look at my professional path and how I got to where I am today."
+        steps={journeySteps}
+      />
+    </section>
+
+    <!-- Portfolio -->
+    <section class="w-full bg-white">
+      <PortfolioSection 
+        overline="PORTFOLIO"
+        title="Selected Work"
+        description="A showcase of my recent premium digital work, focusing on user experience, conversion, and visual impact."
+        projects={portfolioProjects}
+      />
+    </section>
+
+    <!-- Contact -->
+    <section class="w-full border-t border-gray-200">
+      <ContactSection 
+        client:load
+        title={contactTitle}
+        description={contactDescription}
+        email="hello@alexdesign.com"
+        address="123 Creative Studio, NY"
+      />
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 bg-white border-t border-gray-200 flex flex-col justify-start items-center">
+      <div class="text-center text-neutral-400 text-base font-normal font-sans leading-6">
+        &copy; 2024 Alex Design. All rights reserved.
+      </div>
+    </footer>
+
+  </main>
+</Layout>

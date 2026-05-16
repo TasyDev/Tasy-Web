@@ -39,7 +39,9 @@ export const Subtitle = ({
 
   return (
     <Tag className={`justify-center font-sans ${variants[variant]} ${className}`}>
-      {text}
+      {typeof text === 'string' && text.includes('<') ? (
+        <span dangerouslySetInnerHTML={{ __html: text }} />
+      ) : text}
     </Tag>
   );
 };
