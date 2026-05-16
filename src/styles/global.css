@@ -1,5 +1,10 @@
 @import "./tokens.css";
+@import "@fontsource/geist-sans";
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+}
 
 :root {
   background: var(--color-bg);

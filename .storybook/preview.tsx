@@ -12,6 +12,11 @@ initialize({ onUnhandledRequest: 'bypass' });
 const preview: Preview = {
   loaders: [mswLoader],
   parameters: {
+    options: {
+      storySort: {
+        order: ['Resumen', 'Design Tokens', 'Tokens', 'Atoms', 'Molecules', 'Organisms', 'Layouts', 'Pages'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
