@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Hero } from "../components/organisms/sections/Hero";
+import { ContentWithImageSection } from "../components/organisms/sections/ContentWithImageSection";
+import { FeaturesGridSection } from "../components/organisms/sections/FeaturesGridSection";
+import { LogoTickerSection } from "../components/organisms/sections/LogoTickerSection";
+import { TimelineSection } from "../components/organisms/sections/TimelineSection";
+import { ContactSection } from "../components/organisms/sections/ContactSection";
+---
+
+<Layout>
+	<main
+		class="w-full min-h-[100svh] lg:min-h-[800px] px-4 md:px-8 py-24 lg:py-52 relative flex flex-col justify-center items-center overflow-hidden bg-neutral-900"
+	>
+		<Hero />
+	</main>
+	<section class="w-full flex justify-center bg-white">
+		<ContentWithImageSection />
+	</section>
+	<section class="w-full">
+		<FeaturesGridSection />
+	</section>
+	<section
+		class="w-full py-12 lg:py-24 bg-gradient-to-r from-amber-700/20 via-neutral-100/50 to-amber-700/20 flex justify-center items-start"
+	>
+		<LogoTickerSection />
+	</section>
+	<section class="w-full py-16 lg:py-32 flex justify-center bg-white overflow-hidden px-4 md:px-8">
+		<TimelineSection />
+	</section>
+	<section class="w-full flex justify-center bg-white">
+		<ContactSection client:load />
+	</section>
+</Layout>
