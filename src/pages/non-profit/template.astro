@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Hero } from '../../components/organisms/sections/Hero';
+import { CostSection } from '../../components/organisms/sections/CostSection';
+import { CTASection } from '../../components/organisms/sections/CTASection';
+import { TimelineSection } from '../../components/organisms/sections/TimelineSection';
+import { TransformationSection } from '../../components/organisms/sections/TransformationSection';
+import { ConversionContactSection } from '../../components/organisms/sections/ConversionContactSection';
+---
+
+<Layout title="Fix Your Leaky Conversion Funnel">
+  <div class="w-full bg-white inline-flex flex-col justify-start items-center">
+    
+    <!-- Hero Section with Backgrounds -->
+    <div class="self-stretch min-h-[700px] px-8 py-28 relative flex flex-col justify-center items-center overflow-hidden w-full">
+      <div class="size-[600px] absolute right-0 top-0 bg-amber-700/10 rounded-full blur-[50px] -z-10 translate-x-1/2"></div>
+      <div class="size-96 absolute left-0 top-[300px] bg-neutral-100/50 rounded-full blur-2xl -z-10 -translate-x-1/2"></div>
+      
+      <Hero 
+        client:load
+        titlePrefix="Fix Your Leaky"
+        titleHighlight="Conversion Funnel"
+        bodyContent="Transform frustrating user experiences into seamless, high-converting digital journeys that drive growth and retention."
+        buttonLabel="Get a Free Audit"
+      />
+    </div>
+
+    <!-- The Cost of Bad Design -->
+    <CostSection client:load />
+
+    <!-- Ready to stop leaving money on the table? -->
+    <div class="w-full">
+      <CTASection 
+        client:load 
+        title="Ready to stop leaving money on the table?"
+        description="Join the forward-thinking brands that have doubled their conversion rates by partnering with us."
+        buttonText="Start Now"
+      />
+    </div>
+
+    <!-- The Process / Timeline -->
+    <div class="self-stretch py-32 bg-neutral-100/30 border-t border-b border-gray-200 flex flex-col justify-center items-center w-full">
+      <TimelineSection 
+        client:load 
+        overline="THE PROCESS"
+        title="How We Fix It"
+        description="A proven, step-by-step methodology to identify friction and implement high-converting solutions."
+        steps={[
+          { number: '01', title: 'Discovery', description: 'We analyze your current flows to identify exactly where users are dropping off.' },
+          { number: '02', title: 'Strategy', description: 'We map out a frictionless user journey tailored to your specific audience.' },
+          { number: '03', title: 'Redesign', description: 'We create premium, intuitive interfaces that accelerate value delivery.' },
+          { number: '04', title: 'Launch', description: 'We deploy the new experience and monitor metrics to ensure conversion lift.' }
+        ]}
+      />
+    </div>
+
+    <!-- The Transformation -->
+    <TransformationSection client:load />
+
+    <!-- Conversion Contact Form -->
+    <ConversionContactSection client:load />
+
+    <footer class="w-full py-12 border-t border-gray-200 flex flex-col justify-start items-center bg-white">
+      <div class="text-center text-neutral-400 text-base font-normal font-sans leading-6">
+        © 2024 Design Agency. All rights reserved.
+      </div>
+    </footer>
+  </div>
+</Layout>
