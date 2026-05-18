@@ -1,11 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Hero } from "../components/organisms/sections/Hero";
-import { ContentWithImageSection } from "../components/organisms/sections/ContentWithImageSection";
-import { FeaturesGridSection } from "../components/organisms/sections/FeaturesGridSection";
-import { LogoTickerSection } from "../components/organisms/sections/LogoTickerSection";
-import { TimelineSection } from "../components/organisms/sections/TimelineSection";
-import { ContactSection } from "../components/organisms/sections/ContactSection";
+import Layout from "../../layouts/Layout.astro";
+import { Hero } from "../../components/organisms/sections/Hero";
+import { ContentWithImageSection } from "../../components/organisms/sections/ContentWithImageSection";
+import { FeaturesGridSection } from "../../components/organisms/sections/FeaturesGridSection";
+import { LogoTickerSection } from "../../components/organisms/sections/LogoTickerSection";
+import { TimelineSection } from "../../components/organisms/sections/TimelineSection";
+import { ContactSection } from "../../components/organisms/sections/ContactSection";
 ---
 
 <Layout>
@@ -25,7 +25,9 @@ import { ContactSection } from "../components/organisms/sections/ContactSection"
 	>
 		<LogoTickerSection />
 	</section>
-	<section class="w-full py-16 lg:py-32 flex justify-center bg-white overflow-hidden px-4 md:px-8">
+	<section
+		class="w-full py-16 lg:py-32 flex justify-center bg-white overflow-hidden px-4 md:px-8"
+	>
 		<TimelineSection />
 	</section>
 	<section class="w-full flex justify-center bg-white">

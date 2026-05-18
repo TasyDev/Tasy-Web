@@ -1,35 +1,42 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Heading } from '../../components/atoms/text/Heading';
-import { ProjectCard } from '../../components/molecules/cards/ProjectCard';
-import { CTASection } from '../../components/organisms/sections/CTASection';
+import { PageHero } from '../../components/organisms/sections/PageHero';
+import { BlogList } from '../../components/organisms/grids/BlogList';
 
-const projects = await getCollection('portfolio');
+// Fetch actual data from content collections
+const allPosts = await getCollection('portfolio');
+
+// Map to the format expected by BlogList
+const portfolioPosts = allPosts.map(post => {
+  const slug = post.id.replace(/\.(md|mdx)$/, '');
+  return {
+    id: post.id,
+    image: post.data.image || 'https://placehold.co/396x223',
+    category: post.data.category || 'GENERAL',
+    date: post.data.date || 'Jan 1, 2024',
+    title: post.data.title,
+    description: post.data.description,
+    href: `/portfolio/${slug}`
+  };
+});
+
+// Extract unique categories and add 'All Projects'
+const uniqueCategories = [...new Set(portfolioPosts.map(p => p.category))];
+const categories = ["All Projects", ...uniqueCategories];
 ---
 
-<Layout title="Portfolio | Design Agency">
-  <main class="bg-white min-h-screen">
-    <header class="w-full px-8 pt-32 pb-16 flex flex-col items-center text-center">
-      <Heading level={1} variant="display">Our Portfolio</Heading>
-      <p class="mt-6 text-neutral-400 text-xl max-w-2xl font-sans">
-        A curated selection of projects where strategy meets premium craftsmanship.
-      </p>
-    </header>
-
-    <section class="max-w-[1200px] mx-auto px-8 pb-32">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project) => (
-          <ProjectCard 
-            title={project.data.title}
-            description={project.data.description}
-            imageSrc={project.data.image}
-            href={`/portfolio/${project.id.replace(/\.(md|mdx)$/, '')}`}
-          />
-        ))}
-      </div>
-    </section>
-
-    <CTASection client:load />
+<Layout title="Portfolio | Tasy Web">
+  <main class="w-full bg-white flex flex-col justify-start items-center pb-32">
+    <PageHero 
+      badge="OUR PORTFOLIO"
+      titleNormal="Featured"
+      titleHighlight="Work"
+      description="A selection of our best projects showcasing premium digital design, strategic branding, and robust engineering."
+    />
+    
+    <div class="w-full max-w-[1200px] px-8 pt-12 flex flex-col justify-start items-center">
+      <BlogList client:load items={portfolioPosts} categories={categories} />
+    </div>
   </main>
 </Layout>
