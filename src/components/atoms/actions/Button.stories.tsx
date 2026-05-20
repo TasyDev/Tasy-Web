@@ -18,3 +18,10 @@ export const Default: Story = {
     label: 'Start a Project',
   },
 };
+
+export const Dark: Story = {
+  args: {
+    label: 'Start a Project',
+    variant: 'dark',
+  },
+};

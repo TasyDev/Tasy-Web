@@ -14,9 +14,22 @@ interface ContactFormData {
 export const ContactForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>();
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log('Form data:', data);
-  };
+  const onSubmit = async (data: ContactFormData) => {
+  const res = await fetch("https://formspree.io/f/xnjrjwnp", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
+  if (res.ok) {
+    alert("Message sent successfully! We'll get back to you soon.");
+  } else {
+    alert("Error sending message. Please try again later.");
+  }
+};
 
   return (
     <form 

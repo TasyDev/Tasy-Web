@@ -14,10 +14,22 @@ export const CTASection = ({
 }: CTASectionProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm<{ email: string }>();
   
-  const onSubmit = (data: { email: string }) => {
-    console.log('Form submitted:', data);
-    // Handle submission (e.g., API call)
-  };
+  const onSubmit = async (data: {email: string}) => {
+  const res = await fetch("https://formspree.io/f/xnjrjwnp", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
+  if (res.ok) {
+    alert("Message sent successfully! We'll get back to you soon.");
+  } else {
+    alert("Error sending message. Please try again later.");
+  }
+};
 
   return (
     <div className="w-full max-w-[1000px] px-8 pt-40 pb-48 mx-auto">

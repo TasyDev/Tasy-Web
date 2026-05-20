@@ -1,17 +1,24 @@
+---
+import { Navbar } from '../components/layouts/navigation/Navbar';
+import '../styles/global.css';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
-		<style is:global>
-			@import '../styles/global.css';
-		</style>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Tasy Web</title>
 	</head>
 	<body>
+		<div class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+			<div class="pointer-events-auto w-full flex justify-center">
+				<Navbar />
+			</div>
+		</div>
 		<slot />
 	</body>
 </html>

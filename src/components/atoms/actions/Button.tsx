@@ -10,7 +10,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * The color variant
    * @default "primary"
    */
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'dark';
   /**
    * Optional icon to display before the label
    */
@@ -44,6 +44,10 @@ export const Button = ({ label = "Start a Project", variant = 'primary', icon, i
     outline: {
       button: "bg-transparent outline outline-2 outline-offset-[-2px] outline-neutral-900 hover:bg-neutral-50",
       text: "text-neutral-900"
+    },
+    dark: {
+      button: "bg-neutral-900 hover:bg-neutral-800",
+      text: "text-white"
     }
   };
 
