@@ -21,22 +21,28 @@ const blogPosts = allPosts.map(post => {
   };
 });
 
-// Extract unique categories and add 'All Posts'
+// Extract unique categories and add 'Todos'
 const uniqueCategories = [...new Set(blogPosts.map(p => p.category))];
-const categories = ["All Posts", ...uniqueCategories];
+const categories = ["Todos", ...uniqueCategories];
 ---
 
-<Layout title="Blog | Tasy Web">
+<Layout title="Blog de Fundaciones e Impacto Social | Tasy Web">
   <main class="w-full bg-white flex flex-col justify-start items-center pb-32">
     <PageHero 
-      badge="OUR BLOG"
-      titleNormal="Insights &"
-      titleHighlight="Ideas"
-      description="Thoughts, strategies, and industry trends on premium digital product design, branding, and modern architecture."
+      badge="BLOG SOCIAL"
+      titleNormal="Tecnología e"
+      titleHighlight="Impacto"
+      description="Artículos, recursos y reflexiones sobre cómo potenciar fundaciones y organizaciones sin fines de lucro mediante soluciones digitales, desarrollo web y automatización."
     />
     
     <div class="w-full max-w-[1200px] px-8 pt-12 flex flex-col justify-start items-center">
-      <BlogList client:load items={blogPosts} categories={categories} />
+      <BlogList 
+        client:load 
+        items={blogPosts} 
+        categories={categories} 
+        searchPlaceholder="Buscar artículos..."
+        loadMoreLabel="Cargar más artículos"
+      />
     </div>
   </main>
 </Layout>

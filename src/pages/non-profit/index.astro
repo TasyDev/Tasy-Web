@@ -3,34 +3,144 @@ import Layout from "../../layouts/Layout.astro";
 import { Hero } from "../../components/organisms/sections/Hero";
 import { ContentWithImageSection } from "../../components/organisms/sections/ContentWithImageSection";
 import { FeaturesGridSection } from "../../components/organisms/sections/FeaturesGridSection";
-import { LogoTickerSection } from "../../components/organisms/sections/LogoTickerSection";
+import LogoTickerSection from "../../components/organisms/sections/LogoTickerSection";
 import { TimelineSection } from "../../components/organisms/sections/TimelineSection";
 import { ContactSection } from "../../components/organisms/sections/ContactSection";
+
+// Importación de ejemplo desde src/assets para verificar que funcione correctamente
+import placeholderImg from "../../assets/placeholder.svg";
+
+const servicesData = [
+  { 
+    iconName: "code", 
+    title: "Páginas web", 
+    description: "Presencia digital profesional para<br/>tu fundación: rápida, accesible<br/>y fácil de administrar." 
+  },
+  { 
+    iconName: "database", 
+    title: "Sistemas internos", 
+    description: "Plataformas para gestionar<br/>donaciones, eventos, voluntarios<br/>o bases de datos de beneficiarios." 
+  },
+  { 
+    iconName: "cog", 
+    title: "Automatizaciones", 
+    description: "Flujos digitales que ahorran<br/>tiempo y reducen el trabajo<br/>manual de tu equipo." 
+  },
+  { 
+    iconName: "lightbulb", 
+    title: "Consultoría digital", 
+    description: "Te ayudo a entender qué<br/>herramienta tecnológica necesita<br/>realmente tu organización." 
+  }
+];
+
+const timelineSteps = [
+  { 
+    number: '01', 
+    title: 'La charla', 
+    description: 'Conversamos para conocer tu<br/>fundación y validar que su causa<br/>y misión se alinean con este programa.' 
+  },
+  { 
+    number: '02', 
+    title: 'Diagnóstico tecnológico', 
+    description: 'Analizo qué necesita tu organización<br/>y defino la solución de software<br/>más adecuada para su situación.' 
+  },
+  { 
+    number: '03', 
+    title: 'Desarrollo y entrega', 
+    description: 'Construyo la solución acordada<br/>y hago entrega oficial del proyecto<br/>listo para usar.' 
+  },
+  { 
+    number: '04', 
+    title: 'El pago', 
+    description: 'A cambio, la fundación emite un<br/>certificado acreditando el desarrollo<br/>a mi nombre y una carta de recomendación.' 
+  }
+];
 ---
 
 <Layout>
 	<main
 		class="w-full min-h-[100svh] lg:min-h-[800px] px-4 md:px-8 py-24 lg:py-52 relative flex flex-col justify-center items-center overflow-hidden bg-neutral-900"
 	>
-		<Hero />
+		<Hero
+			overlineText="IMPACTO SOCIAL & TECNOLOGÍA"
+			titlePrefix="Tecnología al servicio<br/>"
+			titleHighlight="de quienes más lo necesitan."
+			bodyContent="Soy Sebastián Tamayo, estudiante de ingeniería de software.<br/>Ofrezco desarrollo de software a fundaciones y organizaciones<br/>sin ánimo de lucro, adaptado a sus necesidades reales."
+			buttonLabel="Trabajemos juntos"
+		/>
 	</main>
 	<section class="w-full flex justify-center bg-white">
-		<ContentWithImageSection />
+		<!-- 
+			COMO USAR IMÁGENES LOCALES DESDE @/assets O src/assets:
+			1. Asegúrate de guardar la imagen en la carpeta `src/assets/` (por ejemplo, `mi-foto.png`).
+			2. Impórtala en la sección de arriba (frontmatter entre ---), por ejemplo:
+			   import miFoto from "../../assets/mi-foto.png";
+			3. Pásala al componente utilizando la propiedad `.src`:
+			   imageSrc={miFoto.src}
+			
+			Nota: Actualmente usamos un placeholder de placehold.co, pero puedes cambiarlo a:
+			imageSrc={placeholderImg.src} (importación verificada y funcionando).
+		-->
+		<ContentWithImageSection
+			imageSrc="https://placehold.co/512x640"
+			imageAlt="Sebastián Tamayo trabajando en un proyecto de software"
+			subtitle="Software con propósito"
+			paragraph1="Creo que la tecnología puede ser una herramienta poderosa<br/>para el cambio social. Por eso dedico parte de mi tiempo a<br/>desarrollar soluciones digitales para fundaciones: páginas web,<br/>plataformas, sistemas internos — lo que cada organización necesite."
+			paragraph2="Trabajo de forma cercana con cada fundación, entendiendo su<br/>misión antes de escribir una sola línea de código. A cambio,<br/>recibo certificados de voluntariado y cartas de recomendación<br/>que respaldan mi trayectoria profesional."
+			buttons={[{ label: "Postular mi fundación", variant: "primary" }]}
+		/>
 	</section>
 	<section class="w-full">
-		<FeaturesGridSection />
+		<FeaturesGridSection
+			title="Mis servicios"
+			highlightCard={{
+				title: "Desarrollo a la medida",
+				description: "Analizo las necesidades de tu fundación<br/>y propongo la solución tecnológica más<br/>adecuada, desde cero y sin costo.",
+				buttonLabel: "Ver cómo funciona"
+			}}
+			services={servicesData}
+		/>
 	</section>
 	<section
 		class="w-full py-12 lg:py-24 bg-gradient-to-r from-amber-700/20 via-neutral-100/50 to-amber-700/20 flex justify-center items-start"
 	>
-		<LogoTickerSection />
+		<LogoTickerSection
+			client:only="react"
+			title="Fundaciones con las que he colaborado"
+			description="Construyendo tecnología junto a organizaciones que transforman vidas."
+		/>
 	</section>
 	<section
 		class="w-full py-16 lg:py-32 flex justify-center bg-white overflow-hidden px-4 md:px-8"
 	>
-		<TimelineSection />
+		<TimelineSection
+			overline="PROCESO DE ONBOARDING"
+			title="Así arrancamos juntos"
+			description="Este es el proceso de vinculación para fundaciones. El trabajo no tiene costo económico — a cambio recibo certificados de voluntariado y cartas de recomendación."
+			steps={timelineSteps}
+		/>
 	</section>
 	<section class="w-full flex justify-center bg-white">
-		<ContactSection client:load />
+		<ContactSection
+			client:load
+			title="¿Tu fundación necesita<br/>un aliado tecnológico?"
+			description="Cuéntame sobre tu organización y lo que necesitan. Revisaré tu caso con atención y te responderé pronto."
+			email="sebastian@tasy.work"
+			address="Medellín, Colombia"
+			phone="+57 311 356 5679"
+		/>
 	</section>
+	<footer class="w-full py-10 bg-white border-t border-gray-200 flex flex-col justify-center items-center gap-3">
+		<p class="text-center text-neutral-900 text-sm font-semibold font-sans">Sebastián Tamayo Betancur</p>
+		<div class="flex flex-wrap justify-center items-center gap-4 text-neutral-400 text-sm font-normal font-sans">
+			<span>sebastian@tasy.work</span>
+			<span class="text-neutral-200">|</span>
+			<span>Medellín, Colombia</span>
+			<span class="text-neutral-200">|</span>
+			<span>+57 311 356 5679</span>
+		</div>
+		<p class="text-center text-neutral-400 text-xs font-normal font-sans pt-2">
+			&copy; 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
+		</p>
+	</footer>
 </Layout>

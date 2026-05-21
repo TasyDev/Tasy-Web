@@ -57,26 +57,6 @@ export const BlogPostHero = ({
             </div>
           </div>
         </div>
-
-        <div className="pt-8 flex flex-col justify-start items-start">
-          <div className="inline-flex justify-start items-center gap-4">
-            <div className="w-12 h-12 bg-neutral-100 rounded-full outline outline-2 outline-offset-[-2px] outline-amber-700 inline-flex flex-col justify-center items-start overflow-hidden">
-              <img className="self-stretch flex-1 relative object-cover" src={author.image} alt={author.name} />
-            </div>
-            <div className="inline-flex flex-col justify-start items-start">
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <div className="justify-center text-neutral-900 text-base font-semibold font-sans leading-6">
-                  {author.name}
-                </div>
-              </div>
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <div className="justify-center text-neutral-400 text-sm font-normal font-sans leading-5">
-                  {author.role}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

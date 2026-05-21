@@ -17,26 +17,32 @@ const portfolioPosts = allPosts.map(post => {
     date: post.data.date || 'Jan 1, 2024',
     title: post.data.title,
     description: post.data.description,
-    href: `/portfolio/${slug}`
+    href: `/portafolio/${slug}`
   };
 });
 
-// Extract unique categories and add 'All Projects'
+// Extract unique categories and add 'Todos'
 const uniqueCategories = [...new Set(portfolioPosts.map(p => p.category))];
-const categories = ["All Projects", ...uniqueCategories];
+const categories = ["Todos", ...uniqueCategories];
 ---
 
-<Layout title="Portfolio | Tasy Web">
+<Layout title="Portafolio de Proyectos | Tasy Web">
   <main class="w-full bg-white flex flex-col justify-start items-center pb-32">
     <PageHero 
-      badge="OUR PORTFOLIO"
-      titleNormal="Featured"
-      titleHighlight="Work"
-      description="A selection of our best projects showcasing premium digital design, strategic branding, and robust engineering."
+      badge="PORTAFOLIO"
+      titleNormal="Proyectos destacados y"
+      titleHighlight="Soluciones"
+      description="Una selección detallada de mi trabajo en desarrollo web premium, automatización de procesos y optimización de flujos de trabajo."
     />
     
     <div class="w-full max-w-[1200px] px-8 pt-12 flex flex-col justify-start items-center">
-      <BlogList client:load items={portfolioPosts} categories={categories} />
+      <BlogList 
+        client:load 
+        items={portfolioPosts} 
+        categories={categories} 
+        searchPlaceholder="Buscar proyectos..."
+        loadMoreLabel="Cargar más proyectos"
+      />
     </div>
   </main>
 </Layout>

@@ -11,25 +11,57 @@ interface ContactFormData {
   message: string;
 }
 
-export const ContactForm = () => {
+export interface ContactFormProps {
+  nameLabel?: string;
+  namePlaceholder?: string;
+  nameRequiredMsg?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  emailRequiredMsg?: string;
+  emailInvalidMsg?: string;
+  subjectLabel?: string;
+  subjectPlaceholder?: string;
+  subjectRequiredMsg?: string;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  messageRequiredMsg?: string;
+  submitLabel?: string;
+}
+
+export const ContactForm = ({
+  nameLabel = "Nombre completo",
+  namePlaceholder = "María García",
+  nameRequiredMsg = "El nombre es obligatorio",
+  emailLabel = "Correo electrónico",
+  emailPlaceholder = "maria@correo.com",
+  emailRequiredMsg = "El correo es obligatorio",
+  emailInvalidMsg = "El correo no es válido",
+  subjectLabel = "Asunto",
+  subjectPlaceholder = "¿En qué te puedo ayudar?",
+  subjectRequiredMsg = "El asunto es obligatorio",
+  messageLabel = "Mensaje",
+  messagePlaceholder = "Cuéntame más sobre tu proyecto...",
+  messageRequiredMsg = "El mensaje es obligatorio",
+  submitLabel = "Enviar mensaje"
+}: ContactFormProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>();
 
   const onSubmit = async (data: ContactFormData) => {
-  const res = await fetch("https://formspree.io/f/xnjrjwnp", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+    const res = await fetch("https://formspree.io/f/xnjrjwnp", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
 
-  if (res.ok) {
-    alert("Message sent successfully! We'll get back to you soon.");
-  } else {
-    alert("Error sending message. Please try again later.");
-  }
-};
+    if (res.ok) {
+      alert("¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.");
+    } else {
+      alert("Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.");
+    }
+  };
 
   return (
     <form 
@@ -38,19 +70,19 @@ export const ContactForm = () => {
     >
       <div className="flex flex-col md:flex-row gap-6">
         <Input 
-          label="Full Name" 
-          placeholder="John Doe" 
-          {...register("name", { required: "Name is required" })}
+          label={nameLabel}
+          placeholder={namePlaceholder}
+          {...register("name", { required: nameRequiredMsg })}
           error={errors.name?.message}
         />
         <Input 
-          label="Email Address" 
-          placeholder="john@example.com" 
+          label={emailLabel}
+          placeholder={emailPlaceholder}
           {...register("email", { 
-            required: "Email is required", 
+            required: emailRequiredMsg, 
             pattern: {
               value: /^\S+@\S+$/i,
-              message: "Invalid email address"
+              message: emailInvalidMsg
             }
           })}
           error={errors.email?.message}
@@ -58,27 +90,26 @@ export const ContactForm = () => {
       </div>
       
       <Input 
-        label="Subject" 
-        placeholder="How can I help you?" 
-        {...register("subject", { required: "Subject is required" })}
+        label={subjectLabel}
+        placeholder={subjectPlaceholder}
+        {...register("subject", { required: subjectRequiredMsg })}
         error={errors.subject?.message}
       />
       
       <Textarea 
-        label="Message" 
-        placeholder="Tell me more about your project..." 
+        label={messageLabel}
+        placeholder={messagePlaceholder}
         rows={6}
-        {...register("message", { required: "Message is required" })}
+        {...register("message", { required: messageRequiredMsg })}
         error={errors.message?.message}
       />
 
       <div className="pt-4 flex justify-end">
-        {/* Espacio del sent (Submit button) */}
         <Button 
           type="submit" 
           variant="primary" 
           size="lg"
-          text="Send Message"
+          label={submitLabel}
           className="w-full md:w-auto"
         />
       </div>

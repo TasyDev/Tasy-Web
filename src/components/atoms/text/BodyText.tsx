@@ -33,7 +33,9 @@ export const BodyText = ({
 
   return (
     <div className={`${baseStyle} ${variants[variant]} ${className}`}>
-      {children}
+      {typeof children === 'string' && children.includes('<') ? (
+        <span dangerouslySetInnerHTML={{ __html: children }} />
+      ) : children}
     </div>
   );
 };

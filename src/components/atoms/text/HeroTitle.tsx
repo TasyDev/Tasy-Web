@@ -25,10 +25,14 @@ export const HeroTitle = ({
   return (
     <h1 className={`text-center justify-center ${className}`}>
       <span className="text-white text-5xl md:text-7xl font-bold font-sans leading-tight md:leading-[90px]">
-        {prefix}
+        {typeof prefix === 'string' && prefix.includes('<') ? (
+          <span dangerouslySetInnerHTML={{ __html: prefix }} />
+        ) : prefix}
       </span>
       <span className="text-amber-700 text-5xl md:text-7xl font-bold font-sans leading-tight md:leading-[90px]">
-        {highlight}
+        {typeof highlight === 'string' && highlight.includes('<') ? (
+          <span dangerouslySetInnerHTML={{ __html: highlight }} />
+        ) : highlight}
       </span>
     </h1>
   );

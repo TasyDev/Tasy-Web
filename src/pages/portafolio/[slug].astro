@@ -4,7 +4,6 @@ import Layout from '../../layouts/Layout.astro';
 import { ProjectHero } from '../../components/molecules/sections/ProjectHero';
 import { HeadingH2, HeadingH3 } from '../../components/atoms/text/HeadingMdx';
 import { BlockquoteMdx } from '../../components/atoms/text/BlockquoteMdx';
-import { ShareButtons } from '../../components/molecules/contact/ShareButtons';
 import { CTASection } from '../../components/organisms/sections/CTASection';
 
 export async function getStaticPaths() {
@@ -46,12 +45,19 @@ const mdxComponents = {
       <Content components={mdxComponents} />
     </article>
 
-    <ShareButtons client:load tags={[project.data.category]} />
     <CTASection client:load />
 
-    <footer class="w-full py-12 border-t border-gray-200 flex flex-col justify-start items-center">
-      <p class="text-center text-neutral-400 text-base font-normal font-sans leading-6">
-        © 2024 Design Agency. All rights reserved.
+    <footer class="w-full py-10 border-t border-gray-200 flex flex-col justify-center items-center gap-3">
+      <p class="text-center text-neutral-900 text-sm font-semibold font-sans">Sebastián Tamayo Betancur</p>
+      <div class="flex flex-wrap justify-center items-center gap-4 text-neutral-400 text-sm font-normal font-sans">
+        <span>sebastian@tasy.work</span>
+        <span class="text-neutral-200">|</span>
+        <span>Medellín, Colombia</span>
+        <span class="text-neutral-200">|</span>
+        <span>+57 311 356 5679</span>
+      </div>
+      <p class="text-center text-neutral-400 text-xs font-normal font-sans pt-2">
+        © 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
       </p>
     </footer>
   </main>

@@ -9,9 +9,15 @@ interface BlogFilterBarProps {
   categories: string[];
   activeCategory?: string;
   onCategorySelect?: (category: string) => void;
+  searchPlaceholder?: string;
 }
 
-export function BlogFilterBar({ categories, activeCategory = "All Posts", onCategorySelect }: BlogFilterBarProps) {
+export function BlogFilterBar({ 
+  categories, 
+  activeCategory, 
+  onCategorySelect,
+  searchPlaceholder = "Buscar..."
+}: BlogFilterBarProps) {
   return (
     <div className="w-full flex flex-col justify-start items-start">
       <div className="w-full inline-flex flex-col md:flex-row justify-between items-center gap-4">
@@ -27,7 +33,7 @@ export function BlogFilterBar({ categories, activeCategory = "All Posts", onCate
           </div>
           <input 
             type="text" 
-            placeholder="Search articles..." 
+            placeholder={searchPlaceholder} 
             className="flex-1 bg-transparent border-none outline-none text-neutral-900 placeholder:text-neutral-400 text-base font-normal font-sans leading-6 z-10" 
           />
         </div>

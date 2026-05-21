@@ -37,6 +37,12 @@ export const ProjectCard = ({
             {description}
           </p>
         </div>
+        <div className="mt-2 text-amber-500 font-semibold font-sans text-sm inline-flex items-center gap-1 group-hover:text-amber-400 transition-colors">
+          <span>Leer</span>
+          <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </div>
     </a>
   );

@@ -23,7 +23,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 export const Button = ({ label = "Start a Project", variant = 'primary', icon, iconName, className = '', ...props }: ButtonProps) => {
   const baseStyle = "px-7 py-3.5 rounded-full inline-flex justify-center items-center transition-colors cursor-pointer";
-  const textBase = "text-center justify-center text-base font-semibold font-sans leading-6";
+  const hasTextSize = className.split(' ').some(c => c.startsWith('text-') || c.startsWith('!text-'));
+  const textBase = `text-center justify-center ${hasTextSize ? '' : 'text-base'} font-semibold font-sans leading-6`;
   
   const iconMap = {
     cv: <HiDocumentText />,

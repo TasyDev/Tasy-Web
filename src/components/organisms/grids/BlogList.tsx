@@ -17,16 +17,24 @@ export interface BlogPostItem {
 interface BlogListProps {
   items: BlogPostItem[];
   categories: string[];
+  searchPlaceholder?: string;
+  loadMoreLabel?: string;
 }
 
-export function BlogList({ items, categories }: BlogListProps) {
-  const [activeCategory, setActiveCategory] = useState("All Posts");
+export function BlogList({ 
+  items, 
+  categories,
+  searchPlaceholder,
+  loadMoreLabel = "Cargar más"
+}: BlogListProps) {
+  const defaultCategory = categories[0] || "All Posts";
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
   
   // Filter items
   const filteredItems = useMemo(() => {
-    if (activeCategory === "All Posts") return items;
+    if (activeCategory === defaultCategory) return items;
     return items.filter(item => item.category.toUpperCase() === activeCategory.toUpperCase());
-  }, [items, activeCategory]);
+  }, [items, activeCategory, defaultCategory]);
 
   // Paginate items
   const { currentData, loadMore, hasMore } = usePagination({
@@ -40,6 +48,7 @@ export function BlogList({ items, categories }: BlogListProps) {
         categories={categories} 
         activeCategory={activeCategory} 
         onCategorySelect={setActiveCategory}
+        searchPlaceholder={searchPlaceholder}
       />
       
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pt-8">
@@ -52,7 +61,7 @@ export function BlogList({ items, categories }: BlogListProps) {
         <div className="w-full pt-12 flex justify-center items-center">
           <Button 
             variant="outline" 
-            label="Load More Articles" 
+            label={loadMoreLabel} 
             onClick={loadMore}
           />
         </div>
