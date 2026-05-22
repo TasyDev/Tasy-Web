@@ -1,0 +1,98 @@
+:root {
+  /* Colors (from Figma landing page) */
+  --tasy-color-bg: #ffffff;
+  --tasy-color-surface: #f5f5f5;
+  --tasy-color-surface-muted: rgba(245, 245, 245, 0.3);
+  --tasy-color-text: #111111;
+  --tasy-color-text-muted: #a0a0a0;
+  --tasy-color-brand: #c65a1e;
+  --tasy-color-on-brand: #ffffff;
+
+  /* Typography */
+  --tasy-font-sans: Geist, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
+    'Noto Sans', 'Liberation Sans', sans-serif;
+  --tasy-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+
+  --tasy-text-14: 14px;
+  --tasy-text-18: 18px;
+  --tasy-text-20: 20px;
+  --tasy-text-24: 24px;
+  --tasy-text-48: 48px;
+
+  --tasy-leading-22_75: 22.75px;
+  --tasy-leading-28: 28px;
+  --tasy-leading-29_25: 29.25px;
+  --tasy-leading-32: 32px;
+  --tasy-leading-48: 48px;
+
+  /* Radii */
+  --tasy-radius-24: 24px;
+  --tasy-radius-32: 32px;
+  --tasy-radius-pill: 9999px;
+
+  /* Shadows */
+  --tasy-shadow-elev-1: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --tasy-shadow-soft: 0px 8px 15px rgba(0, 0, 0, 0.04);
+
+  /* Spacing */
+  --tasy-space-16: 16px;
+  --tasy-space-24: 24px;
+  --tasy-space-32: 32px;
+  --tasy-space-80: 80px;
+  --tasy-space-96: 96px;
+}
+
+@theme inline {
+  /* Colors */
+  --color-bg: var(--tasy-color-bg);
+  --color-surface: var(--tasy-color-surface);
+  --color-surface-muted: var(--tasy-color-surface-muted);
+  --color-text: var(--tasy-color-text);
+  --color-text-muted: var(--tasy-color-text-muted);
+  --color-brand: var(--tasy-color-brand);
+  --color-on-brand: var(--tasy-color-on-brand);
+
+  /* Fonts */
+  --font-sans: var(--tasy-font-sans);
+  --font-mono: var(--tasy-font-mono);
+}
+
+:root {
+  --color-bg: var(--tasy-color-bg);
+  --color-surface: var(--tasy-color-surface);
+  --color-surface-muted: var(--tasy-color-surface-muted);
+  --color-text: var(--tasy-color-text);
+  --color-text-muted: var(--tasy-color-text-muted);
+  --color-brand: var(--tasy-color-brand);
+  --color-on-brand: var(--tasy-color-on-brand);
+
+  --font-sans: var(--tasy-font-sans);
+  --font-mono: var(--tasy-font-mono);
+
+  --text-14: var(--tasy-text-14);
+  --text-18: var(--tasy-text-18);
+  --text-20: var(--tasy-text-20);
+  --text-24: var(--tasy-text-24);
+  --text-48: var(--tasy-text-48);
+
+  --leading-22_75: var(--tasy-leading-22_75);
+  --leading-28: var(--tasy-leading-28);
+  --leading-29_25: var(--tasy-leading-29_25);
+  --leading-32: var(--tasy-leading-32);
+  --leading-48: var(--tasy-leading-48);
+
+  --radius-24: var(--tasy-radius-24);
+  --radius-32: var(--tasy-radius-32);
+  --radius-pill: var(--tasy-radius-pill);
+
+  --shadow-elev-1: var(--tasy-shadow-elev-1);
+  --shadow-soft: var(--tasy-shadow-soft);
+
+  --space-16: var(--tasy-space-16);
+  --space-24: var(--tasy-space-24);
+  --space-32: var(--tasy-space-32);
+  --space-80: var(--tasy-space-80);
+  --space-96: var(--tasy-space-96);
+}

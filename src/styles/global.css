@@ -1,0 +1,42 @@
+@import "./tokens.css";
+@import "@fontsource/geist-sans";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 25s) linear infinite;
+  will-change: transform;
+}
+
+.mdx-content a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklab, var(--color-brand) 45%, transparent);
+  font-weight: 600;
+}
+
+.mdx-content a:hover {
+  text-decoration-color: color-mix(in oklab, var(--color-brand) 70%, transparent);
+}

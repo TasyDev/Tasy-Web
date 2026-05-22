@@ -22,3 +22,16 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+*storybook.log
+storybook-static
+
+.codex
+
+.npm-cache/
+
+.antigravity
+
+test-results
+
+playwright-report

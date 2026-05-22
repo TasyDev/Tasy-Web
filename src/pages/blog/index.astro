@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { PageHero } from "../../components/organisms/sections/PageHero";
+import { BlogList } from "../../components/organisms/grids/BlogList";
+
+const allPosts = await getCollection("blog");
+
+const blogPosts = allPosts.map((post) => {
+  const slug = post.id.replace(/\.(md|mdx)$/, "");
+  return {
+    id: post.id,
+    image: post.data.image || "https://placehold.co/396x223",
+    category: post.data.category || "GENERAL",
+    date: post.data.date || "",
+    title: post.data.title,
+    description: post.data.description,
+    href: `/blog/${slug}`,
+  };
+});
+
+const uniqueCategories = [...new Set(blogPosts.map((p) => p.category))];
+const categories = ["Todos", ...uniqueCategories];
+
+const schemaBlog = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Blog de Tecnología e Impacto | Tasy Web",
+  url: "https://tasy.work/blog/",
+};
+---
+
+<Layout
+  title="Blog de Tecnología e Impacto Social | Tasy Web"
+  description="Artículos y recursos sobre cómo potenciar fundaciones y organizaciones sin fines de lucro con desarrollo web, automatización y soluciones digitales."
+  ogType="website"
+  schema={schemaBlog}
+>
+  <main class="w-full bg-white flex flex-col justify-start items-center pb-32">
+    <PageHero
+      badge="BLOG SOCIAL"
+      titleNormal="Tecnología e"
+      titleHighlight="Impacto"
+      description="Artículos, recursos y reflexiones sobre cómo potenciar fundaciones y organizaciones sin fines de lucro mediante soluciones digitales, desarrollo web y automatización."
+    />
+
+    <div class="w-full max-w-[1200px] px-8 pt-12 flex flex-col justify-start items-center">
+      <BlogList
+        client:load
+        items={blogPosts}
+        categories={categories}
+        searchPlaceholder="Buscar artículos..."
+        loadMoreLabel="Cargar más artículos"
+      />
+    </div>
+  </main>
+</Layout>
+

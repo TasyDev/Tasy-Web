@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Shadows" />
+
+# Shadows
+Shadow tokens extracted from the Figma landing page.
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Token</th>
+      <th align="left">Value</th>
+      <th align="left">Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['--shadow-elev-1', 'var(--shadow-elev-1)'],
+      ['--shadow-soft', 'var(--shadow-soft)'],
+    ].map(([token, value]) => (
+      <tr key={token}>
+        <td><code>{token}</code></td>
+        <td><code>{value}</code></td>
+        <td>
+          <span
+            style={{
+              display: 'inline-block',
+              width: 96,
+              height: 40,
+              background: 'var(--color-bg)',
+              borderRadius: 12,
+              boxShadow: `var(${token})`,
+              border: '1px solid rgba(0,0,0,0.06)',
+            }}
+          />
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
