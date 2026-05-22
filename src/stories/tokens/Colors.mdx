@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Colors" />
+
+# Colors
+Design tokens extracted from the Figma landing page.
+
+## Tailwind usage
+
+```html
+<div class="bg-brand text-on-brand">Brand</div>
+<p class="text-text-muted">Muted text</p>
+```
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Token</th>
+      <th align="left">Value</th>
+      <th align="left">Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['--color-bg', 'var(--color-bg)'],
+      ['--color-surface', 'var(--color-surface)'],
+      ['--color-surface-muted', 'var(--color-surface-muted)'],
+      ['--color-text', 'var(--color-text)'],
+      ['--color-text-muted', 'var(--color-text-muted)'],
+      ['--color-brand', 'var(--color-brand)'],
+      ['--color-on-brand', 'var(--color-on-brand)'],
+    ].map(([token, value]) => (
+      <tr key={token}>
+        <td><code>{token}</code></td>
+        <td><code>{value}</code></td>
+        <td>
+          <span
+            style={{
+              display: 'inline-block',
+              width: 56,
+              height: 24,
+              borderRadius: 9999,
+              border: '1px solid rgba(0,0,0,0.08)',
+              background: `var(${token})`,
+            }}
+          />
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

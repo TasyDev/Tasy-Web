@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { ProjectHero } from "../../components/molecules/sections/ProjectHero";
+import { HeadingH2, HeadingH3 } from "../../components/atoms/text/HeadingMdx";
+import { BlockquoteMdx } from "../../components/atoms/text/BlockquoteMdx";
+import { CTASection } from "../../components/organisms/sections/CTASection";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("portfolio");
+  return projects.map((project) => ({
+    params: { slug: project.id.replace(/\.(md|mdx)$/, "") },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const slug = project.id.replace(/\.(md|mdx)$/, "");
+const { Content } = await render(project);
+
+const mdxComponents = {
+  h2: HeadingH2,
+  h3: HeadingH3,
+  blockquote: BlockquoteMdx,
+};
+
+const canonicalPath = `/portafolio/${slug}/`;
+
+const schemaCreativeWork = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.data.title,
+  description: project.data.description,
+  image: project.data.image ? [project.data.image] : undefined,
+  url: `https://tasy.work${canonicalPath}`,
+};
+---
+
+<Layout
+  title={`${project.data.title} | Portafolio | Tasy Web`}
+  description={project.data.description}
+  ogType="article"
+  ogImage={project.data.image}
+  canonical={canonicalPath}
+  schema={schemaCreativeWork}
+>
+  <main class="bg-white min-h-screen">
+    <ProjectHero
+      category={project.data.category}
+      title={project.data.title}
+      subtitle={project.data.description}
+    />
+
+    <div class="w-full max-w-[1000px] px-8 pb-16 mx-auto">
+      <img
+        class="w-full h-auto object-cover rounded-3xl shadow-2xl"
+        src={project.data.image}
+        alt={project.data.title}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <article class="mdx-content w-full max-w-[800px] px-8 pb-16 mx-auto flex flex-col gap-6 text-neutral-900/80 text-lg font-sans leading-7">
+      <Content components={mdxComponents} />
+    </article>
+
+    <CTASection client:load />
+
+    <footer class="w-full py-10 border-t border-gray-200 flex flex-col justify-center items-center gap-3">
+      <p class="text-center text-neutral-900 text-sm font-semibold font-sans">Sebastián Tamayo Betancur</p>
+      <div class="flex flex-wrap justify-center items-center gap-4 text-neutral-400 text-sm font-normal font-sans">
+        <span>sebastian@tasy.work</span>
+        <span class="text-neutral-200">|</span>
+        <span>Medellín, Colombia</span>
+        <span class="text-neutral-200">|</span>
+        <span>+57 311 356 5679</span>
+      </div>
+      <p class="text-center text-neutral-400 text-xs font-normal font-sans pt-2">
+        &copy; 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
+      </p>
+    </footer>
+  </main>
+</Layout>
+

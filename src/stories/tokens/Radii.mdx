@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Radii" />
+
+# Radii
+Corner radius tokens from the Figma landing page.
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Token</th>
+      <th align="left">Value</th>
+      <th align="left">Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['--radius-24', 'var(--radius-24)'],
+      ['--radius-32', 'var(--radius-32)'],
+      ['--radius-pill', 'var(--radius-pill)'],
+    ].map(([token, value]) => (
+      <tr key={token}>
+        <td><code>{token}</code></td>
+        <td><code>{value}</code></td>
+        <td>
+          <span
+            style={{
+              display: 'inline-block',
+              width: 56,
+              height: 24,
+              background: 'var(--color-surface)',
+              border: '1px solid rgba(0,0,0,0.08)',
+              borderRadius: `var(${token})`,
+            }}
+          />
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+

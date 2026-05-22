@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Typography" />
+
+# Typography
+Font family, sizes, and line-heights used in the Figma landing page.
+
+## Font families
+
+- <code>--font-sans</code>: <code>var(--font-sans)</code>
+- <code>--font-mono</code>: <code>var(--font-mono)</code>
+
+## Tailwind usage
+
+```html
+<h2 class="font-sans text-[48px] leading-[48px]">Heading</h2>
+<p class="font-sans text-[18px] leading-[29.25px] text-text-muted">Body</p>
+```
+
+## Type scale
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Token</th>
+      <th align="left">Value</th>
+      <th align="left">Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['--text-14', 'var(--text-14)', 'Label / Caption'],
+      ['--text-18', 'var(--text-18)', 'Body text'],
+      ['--text-20', 'var(--text-20)', 'Emphasis'],
+      ['--text-24', 'var(--text-24)', 'Heading 3'],
+      ['--text-48', 'var(--text-48)', 'Heading 2'],
+    ].map(([token, value, sample]) => (
+      <tr key={token}>
+        <td><code>{token}</code></td>
+        <td><code>{value}</code></td>
+        <td>
+          <span style={{ fontFamily: 'var(--font-sans)', fontSize: `var(${token})`, lineHeight: 1.2 }}>
+            {sample}
+          </span>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## Line heights
+
+- <code>--leading-22_75</code>: <code>var(--leading-22_75)</code>
+- <code>--leading-28</code>: <code>var(--leading-28)</code>
+- <code>--leading-29_25</code>: <code>var(--leading-29_25)</code>
+- <code>--leading-32</code>: <code>var(--leading-32)</code>
+- <code>--leading-48</code>: <code>var(--leading-48)</code>
+
