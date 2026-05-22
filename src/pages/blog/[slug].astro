@@ -1,20 +1,21 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import { BlogPostHero } from '../../components/molecules/sections/BlogPostHero';
-import { HeadingH2, HeadingH3 } from '../../components/atoms/text/HeadingMdx';
-import { BlockquoteMdx } from '../../components/atoms/text/BlockquoteMdx';
-import { CTASection } from '../../components/organisms/sections/CTASection';
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { BlogPostHero } from "../../components/molecules/sections/BlogPostHero";
+import { HeadingH2, HeadingH3 } from "../../components/atoms/text/HeadingMdx";
+import { BlockquoteMdx } from "../../components/atoms/text/BlockquoteMdx";
+import { CTASection } from "../../components/organisms/sections/CTASection";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+    params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
+const slug = post.id.replace(/\.(md|mdx)$/, "");
 const { Content } = await render(post);
 
 const mdxComponents = {
@@ -22,12 +23,31 @@ const mdxComponents = {
   h3: HeadingH3,
   blockquote: BlockquoteMdx,
 };
+
+const canonicalPath = `/blog/${slug}/`;
+
+const schemaBlogPosting = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  image: post.data.image ? [post.data.image] : undefined,
+  datePublished: post.data.date,
+  author: post.data.author?.name ? { "@type": "Person", name: post.data.author.name } : undefined,
+  mainEntityOfPage: { "@type": "WebPage", "@id": `https://tasy.work${canonicalPath}` },
+};
 ---
 
-<Layout title={`${post.data.title} | Blog`}>
+<Layout
+  title={`${post.data.title} | Blog | Tasy Web`}
+  description={post.data.description}
+  ogType="article"
+  ogImage={post.data.image}
+  canonical={canonicalPath}
+  schema={schemaBlogPosting}
+>
   <main class="bg-white min-h-screen">
-    <BlogPostHero 
-      client:load
+    <BlogPostHero
       category={post.data.category}
       date={post.data.date}
       title={post.data.title}
@@ -36,14 +56,16 @@ const mdxComponents = {
     />
 
     <div class="w-full max-w-[1000px] px-8 pb-16 mx-auto">
-      <img 
-        class="w-full h-auto object-cover rounded-3xl shadow-2xl" 
-        src={post.data.image} 
+      <img
+        class="w-full h-auto object-cover rounded-3xl shadow-2xl"
+        src={post.data.image}
         alt={post.data.title}
+        loading="eager"
+        decoding="async"
       />
     </div>
 
-    <article class="w-full max-w-[800px] px-8 pb-16 mx-auto flex flex-col gap-6 text-neutral-900/80 text-lg font-sans leading-7">
+    <article class="mdx-content w-full max-w-[800px] px-8 pb-16 mx-auto flex flex-col gap-6 text-neutral-900/80 text-lg font-sans leading-7">
       <Content components={mdxComponents} />
     </article>
 
@@ -59,8 +81,9 @@ const mdxComponents = {
         <span>+57 311 356 5679</span>
       </div>
       <p class="text-center text-neutral-400 text-xs font-normal font-sans pt-2">
-        © 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
+        &copy; 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
       </p>
     </footer>
   </main>
 </Layout>
+

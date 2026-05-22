@@ -1,8 +1,8 @@
 ---
 title: "Automatizador de Carruseles"
-description: "Instagram"
+description: "Automatizador de carruseles para instagram"
 category: "AUTOMATION"
-image: "https://placehold.co/1200x600/C65A1E/white?text=Automatizador+Instagram"
+image: "https://i.ibb.co/5hNVD5XL/Dise-o-sin-t-tulo.jpg"
 ---
 
 ## El Desafío
@@ -12,3 +12,94 @@ Automatizar la generación visual y de contenido para carruseles de Instagram a 
 ## El Resultado
 
 Una herramienta ágil y robusta que acelera la creación de contenido visual en un 80%, manteniendo consistencia de marca y diseño.
+
+## ¿Qué es y qué hace?
+
+**Instagram Carousel JSON to PNG** es una herramienta de automatización en Node.js que convierte datos estructurados en JSON a imágenes PNG listas para publicar en Instagram (1080 × 1350 px), sin intervención manual en el diseño.
+
+En lugar de abrir Canva, arrastrar elementos, cambiar textos uno por uno y exportar cada slide por separado, simplemente defines el contenido de tus slides en un archivo JSON, ejecutas un comando, y la herramienta genera todas las imágenes del carrusel de forma automática y consistente.
+
+## ¿Cómo funciona?
+
+La arquitectura sigue un patrón de **Data-Driven Template Rendering**: los datos y el diseño viven separados, y el motor los fusiona en tiempo de ejecución.
+
+```
+carousel-data.json  →  index.js  →  Puppeteer (headless)  →  out/
+     (contenido)         (motor)       (render HTML→PNG)      (imágenes)
+```
+
+**1. Defines el contenido en `carousel-data.json`**
+
+Cada objeto del array representa un slide. El campo `type` indica qué plantilla usar; el resto son los datos dinámicos (título, bullets, fondo, etc.):
+
+```json
+[
+  {
+    "type": "cover",
+    "title": "5 Errores que cometen los founders",
+    "subtitle": "Y cómo evitarlos",
+    "background": "#0f172a"
+  },
+  {
+    "type": "bullet-list",
+    "headline": "Error #1: No validar antes de construir",
+    "items": ["Hablar con 10 clientes primero", "Construir un MVP en 2 semanas"]
+  }
+]
+```
+
+**2. El motor fusiona datos con plantillas HTML**
+
+`index.js` lee el JSON, carga la plantilla HTML correspondiente al `type` de cada slide, e inyecta los datos usando **Handlebars**. El resultado es HTML renderizable con el diseño correcto y el contenido del JSON.
+
+**3. Puppeteer genera los PNGs**
+
+`node-html-to-image` lanza un navegador Puppeteer en modo headless, renderiza cada HTML con el CSS compartido y captura una screenshot de 1080 × 1350 px por slide.
+
+**4. Las imágenes se guardan organizadas por fecha**
+
+```
+out/
+└── 2025-05-21_14-30/
+    ├── slide-1.png
+    ├── slide-2.png
+    └── slide-3.png
+```
+
+## Stack técnico
+
+| Capa | Tecnología |
+|------|-----------|
+| Runtime | Node.js |
+| Templating | Handlebars (HTML + CSS) |
+| Render engine | node-html-to-image + Puppeteer |
+| Data source | JSON |
+| Output | PNG 1080 × 1350 px |
+
+## ¿Qué facilita?
+
+**Consistencia de marca sin esfuerzo.** El CSS vive en un solo `index.css` compartido por todas las plantillas. Cambiar la tipografía o los colores de marca en un archivo se refleja en todos los slides de todos los carruseles futuros.
+
+**Escala sin fricción.** Un carrusel de 10 slides tarda lo mismo que uno de 3: el tiempo que demora ejecutar `node index.js`. No hay fatiga de clicks ni errores de copy-paste.
+
+**Separación de roles.** Un redactor puede modificar el JSON (contenido) sin tocar el código. Un diseñador puede iterar las plantillas HTML/CSS sin tocar la lógica. El motor no cambia.
+
+**Versionable y auditable.** Al vivir todo en archivos de texto plano (JSON + HTML + CSS + JS), el historial de cambios de contenido y diseño queda completamente trazado en Git.
+
+**Sin dependencias de SaaS.** Cero costos de suscripción a herramientas de diseño. Cero límites de exportaciones mensuales. Corre completamente local.
+
+## Flujo de uso típico
+
+```bash
+# 1. Editar el contenido del carrusel
+nano carousel-data.json
+
+# 2. Generar las imágenes
+node index.js
+
+# 3. Recoger los PNGs en out/ y publicar
+```
+
+## Repo
+
+[github.com/TasyDev/Instagram-Carousel-JSON-to-PNG](https://github.com/TasyDev/Instagram-Carousel-JSON-to-PNG)

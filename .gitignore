@@ -31,3 +31,7 @@ storybook-static
 .npm-cache/
 
 .antigravity
+
+test-results
+
+playwright-report

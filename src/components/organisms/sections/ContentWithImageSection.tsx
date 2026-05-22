@@ -16,6 +16,8 @@ export interface ContentWithImageSectionProps {
   imageSrc?: string;
   imageAlt?: string;
   subtitle?: React.ReactNode;
+  subtitleLevel?: 'h1' | 'h2' | 'h3' | 'h4';
+  subtitleVariant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h4-light';
   paragraph1?: React.ReactNode;
   paragraph2?: React.ReactNode;
   buttons?: ButtonAction[];
@@ -27,8 +29,10 @@ export const ContentWithImageSection = ({
   imageSrc = "https://placehold.co/512x640",
   imageAlt,
   subtitle = "The ContentWithImageSection",
-  paragraph1 = <>We believe that design should not just look good, but perform<br/>exceptionally. With an emphasis on aesthetic precision and<br/>scalable architecture, we deliver solutions that define market<br/>leaders.</>,
-  paragraph2 = <>Our process is rooted in understanding your core objectives<br/>and transforming them into a striking visual language that<br/>commands attention.</>,
+  subtitleLevel = 'h2',
+  subtitleVariant = 'h2',
+  paragraph1 = <>We believe that design should not just look good, but perform<br />exceptionally. With an emphasis on aesthetic precision and<br />scalable architecture, we deliver solutions that define market<br />leaders.</>,
+  paragraph2 = <>Our process is rooted in understanding your core objectives<br />and transforming them into a striking visual language that<br />commands attention.</>,
   buttons = [{ label: "Start a Project", variant: "primary" }],
   reverse = false,
   imageClassName = ""
@@ -41,7 +45,7 @@ export const ContentWithImageSection = ({
       </div>
       <div className="w-full lg:w-[512px] flex flex-col justify-start items-start gap-6 shrink-0">
         <div className="self-stretch flex flex-col justify-start items-start">
-          <Subtitle text={subtitle} />
+          <Subtitle text={subtitle} level={subtitleLevel} variant={subtitleVariant} />
         </div>
         <div className="self-stretch flex flex-col justify-start items-start">
           <BodyText variant="standard">{paragraph1}</BodyText>
@@ -51,20 +55,25 @@ export const ContentWithImageSection = ({
             <BodyText variant="standard">{paragraph2}</BodyText>
           </div>
         )}
-        <div className="pt-6 flex flex-row flex-nowrap items-center justify-start gap-3 md:gap-4 overflow-x-auto scrollbar-hide">
-          {buttons.map((btn, idx) => (
-            <div key={idx} className="flex-shrink-0">
-              <Button 
-                label={btn.label} 
-                variant={btn.variant} 
-                onClick={btn.onClick} 
-                icon={btn.icon} 
-                iconName={btn.iconName} 
+
+        {buttons.map((btn, idx) => (
+          <div key={idx} className="flex-shrink-0">
+
+            <a
+              href={btn.url}
+              target={btn.target}
+              rel={btn.rel}
+            >
+              <Button
+                label={btn.label}
+                variant={btn.variant}
+                icon={btn.icon}
+                iconName={btn.iconName}
                 className="whitespace-nowrap px-5 md:px-7"
               />
-            </div>
-          ))}
-        </div>
+            </a>
+          </div>
+        ))}
       </div>
     </section>
   );

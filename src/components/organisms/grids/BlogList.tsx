@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
-import { BlogCard } from '../../molecules/cards/BlogCard';
-import { BlogFilterBar } from '../filters/BlogFilterBar';
-import { Button } from '../../atoms/actions/Button';
-import { usePagination } from '../../../hooks/usePagination';
+import React, { useMemo, useState } from "react";
+import { BlogCard } from "../../molecules/cards/BlogCard";
+import { BlogFilterBar } from "../filters/BlogFilterBar";
+import { Button } from "../../atoms/actions/Button";
+import { usePagination } from "../../../hooks/usePagination";
 
 export interface BlogPostItem {
   id: string;
@@ -21,36 +21,36 @@ interface BlogListProps {
   loadMoreLabel?: string;
 }
 
-export function BlogList({ 
-  items, 
+export function BlogList({
+  items,
   categories,
   searchPlaceholder,
-  loadMoreLabel = "Cargar más"
+  loadMoreLabel = "Cargar más",
 }: BlogListProps) {
-  const defaultCategory = categories[0] || "All Posts";
+  const defaultCategory = categories[0] || "Todos";
   const [activeCategory, setActiveCategory] = useState(defaultCategory);
-  
-  // Filter items
+
   const filteredItems = useMemo(() => {
     if (activeCategory === defaultCategory) return items;
-    return items.filter(item => item.category.toUpperCase() === activeCategory.toUpperCase());
+    return items.filter(
+      (item) => item.category.toUpperCase() === activeCategory.toUpperCase(),
+    );
   }, [items, activeCategory, defaultCategory]);
 
-  // Paginate items
   const { currentData, loadMore, hasMore } = usePagination({
     data: filteredItems,
-    itemsPerPage: 6
+    itemsPerPage: 6,
   });
 
   return (
     <div className="w-full flex flex-col items-center">
-      <BlogFilterBar 
-        categories={categories} 
-        activeCategory={activeCategory} 
+      <BlogFilterBar
+        categories={categories}
+        activeCategory={activeCategory}
         onCategorySelect={setActiveCategory}
         searchPlaceholder={searchPlaceholder}
       />
-      
+
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pt-8">
         {currentData.map((item) => (
           <BlogCard key={item.id} {...item} />
@@ -59,13 +59,10 @@ export function BlogList({
 
       {hasMore && (
         <div className="w-full pt-12 flex justify-center items-center">
-          <Button 
-            variant="outline" 
-            label={loadMoreLabel} 
-            onClick={loadMore}
-          />
+          <Button variant="outline" label={loadMoreLabel} onClick={loadMore} />
         </div>
       )}
     </div>
   );
 }
+

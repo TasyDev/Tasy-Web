@@ -4,17 +4,17 @@ import { BodyText } from '../../atoms/text/BodyText';
 import { LogoStripLayout } from '../../layouts/containers/LogoStripLayout';
 
 import { FaApple, FaAmazon, FaFigma, FaReact, FaNodeJs, FaGithub } from 'react-icons/fa';
-import { 
-  SiReact, 
-  SiAstro, 
-  SiNextdotjs, 
-  SiTailwindcss, 
-  SiTypescript, 
-  SiNodedotjs, 
-  SiPython, 
-  SiGit, 
-  SiFigma, 
-  SiGithub 
+import {
+  SiReact,
+  SiAstro,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiGit,
+  SiFigma,
+  SiGithub,
 } from 'react-icons/si';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -27,38 +27,60 @@ const iconMap: Record<string, React.ReactNode> = {
   python: <SiPython key="python" style={{ color: '#3776AB' }} />,
   git: <SiGit key="git" style={{ color: '#F05032' }} />,
   figma: <SiFigma key="figma" style={{ color: '#F24E1E' }} />,
-  github: <SiGithub key="github" style={{ color: '#181717' }} />
+  github: <SiGithub key="github" style={{ color: '#181717' }} />,
 };
+
+export interface LogoImage {
+  src: string;
+  alt: string;
+}
 
 export interface LogoTickerSectionProps {
   title?: string;
   description?: string;
+  /** Pass React nodes directly as icons */
   icons?: React.ReactNode[];
+  /** Pass icon names from the built-in icon map */
   iconNames?: string[];
+  /** Pass image objects {src, alt} to render real logos */
+  images?: LogoImage[];
+  /** Whether to animate as a scrolling marquee (default: true) */
+  animated?: boolean;
 }
 
 export const LogoTickerSection = ({
-  title = "Trusted By Leaders",
+  title = 'Trusted By Leaders',
   description = "Partnering with the world's most innovative teams.",
   icons,
-  iconNames
+  iconNames,
+  images,
+  animated = true,
 }: LogoTickerSectionProps) => {
-  let resolvedIcons = icons;
+  let resolvedIcons: React.ReactNode[];
 
-  if (iconNames && iconNames.length > 0) {
-    resolvedIcons = iconNames
-      .map(name => iconMap[name])
-      .filter(Boolean);
-  }
-
-  if (!resolvedIcons || resolvedIcons.length === 0) {
+  if (images && images.length > 0) {
+    // Real logo images take priority
+    resolvedIcons = images.map(({ src, alt }) => (
+      <img
+        key={src}
+        src={src}
+        alt={alt}
+        style={{ height: '3rem', width: 'auto', objectFit: 'contain' }}
+      />
+    ));
+  } else if (iconNames && iconNames.length > 0) {
+    resolvedIcons = iconNames.map((name) => iconMap[name]).filter(Boolean);
+  } else if (icons && icons.length > 0) {
+    resolvedIcons = icons;
+  } else {
+    // Default demo icons
     resolvedIcons = [
       <FaApple key="apple" />,
       <FaAmazon key="amazon" />,
       <FaFigma key="figma" />,
       <FaReact key="react" />,
       <FaNodeJs key="nodejs" />,
-      <FaGithub key="github" />
+      <FaGithub key="github" />,
     ];
   }
 
@@ -69,11 +91,13 @@ export const LogoTickerSection = ({
           <Subtitle text={title} level="h3" variant="h3" className="text-center" />
         </div>
         <div className="self-stretch flex flex-col justify-start items-center">
-          <BodyText variant="standard" className="text-center">{description}</BodyText>
+          <BodyText variant="standard" className="text-center">
+            {description}
+          </BodyText>
         </div>
       </div>
-      
-      <LogoStripLayout icons={resolvedIcons} />
+
+      <LogoStripLayout icons={resolvedIcons} animated={animated} />
     </div>
   );
 };

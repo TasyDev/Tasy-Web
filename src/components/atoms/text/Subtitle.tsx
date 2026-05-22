@@ -7,15 +7,15 @@ export interface SubtitleProps {
    */
   text?: React.ReactNode;
   /**
-   * The heading level (h2, h3, h4)
+   * The heading level (h1, h2, h3, h4)
    * @default "h2"
    */
-  level?: 'h2' | 'h3' | 'h4';
+  level?: 'h1' | 'h2' | 'h3' | 'h4';
   /**
    * The visual variant matching the level
    * @default "h2"
    */
-  variant?: 'h2' | 'h3' | 'h4' | 'h4-light';
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h4-light';
   /**
    * Additional CSS classes
    */
@@ -31,6 +31,7 @@ export const Subtitle = ({
   const Tag = level;
   
   const variants = {
+    'h1': "text-neutral-900 text-5xl md:text-6xl font-bold leading-tight md:leading-[72px] break-words",
     'h2': "text-neutral-900 text-4xl md:text-5xl font-bold leading-tight md:leading-[48px] break-words",
     'h3': "text-neutral-900 text-4xl md:text-5xl font-bold leading-tight md:leading-[48px] break-words",
     'h4': "text-neutral-900 text-xl md:text-2xl font-semibold leading-snug md:leading-8 break-words",

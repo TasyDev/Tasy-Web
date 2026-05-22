@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '../../atoms/forms/Input';
 import { Textarea } from '../../atoms/forms/Textarea';
@@ -44,7 +44,12 @@ export const ContactForm = ({
   messageRequiredMsg = "El mensaje es obligatorio",
   submitLabel = "Enviar mensaje"
 }: ContactFormProps) => {
+  const [hydrated, setHydrated] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>();
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const onSubmit = async (data: ContactFormData) => {
     const res = await fetch("https://formspree.io/f/xnjrjwnp", {
@@ -66,16 +71,20 @@ export const ContactForm = ({
   return (
     <form 
       onSubmit={handleSubmit(onSubmit)} 
+      data-testid="contact-form"
+      data-hydrated={hydrated ? 'true' : undefined}
       className="flex flex-col gap-6 w-full max-w-2xl bg-white p-10 rounded-[32px] shadow-xl"
     >
       <div className="flex flex-col md:flex-row gap-6">
         <Input 
+          id="contact-name"
           label={nameLabel}
           placeholder={namePlaceholder}
           {...register("name", { required: nameRequiredMsg })}
           error={errors.name?.message}
         />
         <Input 
+          id="contact-email"
           label={emailLabel}
           placeholder={emailPlaceholder}
           {...register("email", { 
@@ -90,6 +99,7 @@ export const ContactForm = ({
       </div>
       
       <Input 
+        id="contact-subject"
         label={subjectLabel}
         placeholder={subjectPlaceholder}
         {...register("subject", { required: subjectRequiredMsg })}
@@ -97,6 +107,7 @@ export const ContactForm = ({
       />
       
       <Textarea 
+        id="contact-message"
         label={messageLabel}
         placeholder={messagePlaceholder}
         rows={6}

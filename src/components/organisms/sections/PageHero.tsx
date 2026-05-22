@@ -25,10 +25,10 @@ export function PageHero({ badge, titleNormal, titleHighlight, description }: Pa
             {badge}
           </div>
         </div>
-        <div className="text-center justify-center">
-          <span className="text-neutral-900 text-6xl md:text-7xl font-bold font-sans leading-tight">{titleNormal} </span>
-          <span className="text-amber-700 text-6xl md:text-7xl font-bold font-sans leading-tight">{titleHighlight}</span>
-        </div>
+        <h1 className="text-center justify-center text-neutral-900 text-6xl md:text-7xl font-bold font-sans leading-tight">
+          <span className="text-neutral-900">{titleNormal} </span>
+          <span className="text-amber-700">{titleHighlight}</span>
+        </h1>
         <div className="max-w-[672px] pt-4 flex flex-col justify-center items-center">
           <div className="text-center text-neutral-500 text-lg md:text-xl font-normal font-sans leading-8">
             {description}

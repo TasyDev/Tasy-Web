@@ -1,93 +1,130 @@
 ---
-import React from 'react';
-import Layout from '../layouts/Layout.astro';
-import { ContentWithImageSection } from '../components/organisms/sections/ContentWithImageSection';
-import { TimelineSection } from '../components/organisms/sections/TimelineSection';
-import { PortfolioSection } from '../components/organisms/sections/PortfolioSection';
-import { TechCarouselSection } from '../components/organisms/sections/TechCarouselSection';
-import { ContactSection } from '../components/organisms/sections/ContactSection';
-import LogoTickerSection from '../components/organisms/sections/LogoTickerSection';
-
-import { HiDocumentText, HiLink } from "react-icons/hi2";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { ContentWithImageSection } from "../components/organisms/sections/ContentWithImageSection";
+import { TimelineSection } from "../components/organisms/sections/TimelineSection";
+import { PortfolioSection } from "../components/organisms/sections/PortfolioSection";
+import { ContactSection } from "../components/organisms/sections/ContactSection";
+import LogoTickerSection from "../components/organisms/sections/LogoTickerSection";
+import tamayoImg from "../assets/tamayo.jpeg";
 
 // --- Hero Data ---
-const heroSubtitle = "Hey, soy <br/><span class='text-amber-700'>Sebastián Tamayo Betancur</span>";
-const heroParagraph = "Soy desarrollador fullstack enfocado en resolver problemas reales de las organizaciones. Construyo soluciones a medida: captación de leads, gestión interna, automatizaciones e interfaces que escalan operaciones. No me caso con ninguna tecnología, me caso con el problema.";
+const heroSubtitle =
+  "Hola, soy <br/><span class='text-amber-700'>Sebastián Tamayo Betancur</span>";
+const heroParagraph =
+  "Soy desarrollador fullstack enfocado en resolver problemas reales de las organizaciones. Construyo soluciones a medida: captación de leads, gestión interna, automatizaciones e interfaces que escalan operaciones. No me caso con ninguna tecnología, me caso con el problema.";
 
 const heroButtons = [
-  { 
-    label: "Descargar CV", 
-    variant: "primary" as const, 
-    iconName: "cv" as const
+  {
+    label: "Descargar CV",
+    variant: "primary" as const,
+    iconName: "cv" as const,
+    url: "https://drive.google.com/file/d/1_q8t0nIoDt-0xFvMdXZaAONY1ezh8y-Q/view?usp=sharing",
+    target: "_blank",
+    rel: "noopener noreferrer",
   },
-  { 
-    label: "Ver LinkedIn", 
-    variant: "outline" as const, 
-    iconName: "linkedin" as const
-  }
+  {
+    label: "Ver LinkedIn",
+    variant: "outline" as const,
+    iconName: "linkedin" as const,
+    url: "https://www.linkedin.com/in/sebastian-tamayo-betancur/",
+    target: "_blank",
+    rel: "noopener noreferrer",
+  },
 ];
 
-const heroImageClass = "w-full max-w-[509px] h-full max-h-[532px] left-[42px] top-[-11px] absolute origin-top-left rotate-6 bg-amber-700/5 rounded-[40px] blur-[20px]";
+const heroImageClass =
+  "w-full max-w-[509px] h-full max-h-[532px] left-[42px] top-[-11px] absolute origin-top-left rotate-6 bg-amber-700/5 rounded-[40px] blur-[20px]";
 
 // --- Journey Data ---
 const journeySteps = [
-  { number: '2022', title: 'Estudiante Diseño Gráfico', description: 'Estudié diseño visual y dirección de arte en Pascual Bravo. Construí bases en maquetación, branding y comunicación visual.' },
-  { number: '2025', title: 'Estudiante Desarrollo de Software', description: 'Cursando Técnico en Desarrollo de Software en CESDE. Enfocado en Java, SQL y fundamentos de programación.' },
-  { number: '2025', title: 'Webmaster', description: 'Administré Tamal News en América Capital. Implementé estrategia SEO desde cero mejorando arquitectura del sitio y visibilidad orgánica.' },
-  { number: '2025', title: 'Frontend Developer', description: 'Desarrollé la primera landing page de Tamal News en React y diseñé las páginas de todas las líneas de negocio de América Capital.' },
-  { number: '2026', title: 'Pasante IA en Mimeia', description: 'Impulsé la transformación AI-first de empresas automatizando procesos manuales con agentes inteligentes e integraciones en Python.' },
-  { number: '2026', title: 'Desarrollador Independiente', description: 'Desarrollo soluciones digitales a medida para organizaciones: captación de leads, gestión interna y automatizaciones que escalan operaciones.' }
+  {
+    number: "2022",
+    title: "Estudiante Diseño Gráfico",
+    description:
+      "Estudié diseño visual y dirección de arte en Pascual Bravo. Construí bases en maquetación, branding y comunicación visual.",
+  },
+  {
+    number: "2025",
+    title: "Estudiante Desarrollo de Software",
+    description:
+      "Cursando Técnico en Desarrollo de Software en CESDE. Enfocado en Java, SQL y fundamentos de programación.",
+  },
+  {
+    number: "2025",
+    title: "Webmaster",
+    description:
+      "Administré Tamal News en América Capital. Implementé estrategia SEO desde cero mejorando arquitectura del sitio y visibilidad orgánica.",
+  },
+  {
+    number: "2025",
+    title: "Frontend Developer",
+    description:
+      "Desarrollé la primera landing page de Tamal News en React y diseñé las páginas de todas las líneas de negocio de América Capital.",
+  },
+  {
+    number: "2026",
+    title: "Pasante IA en Mimeia",
+    description:
+      "Impulsé la transformación AI-first de empresas automatizando procesos manuales con agentes inteligentes e integraciones en Python.",
+  },
+  {
+    number: "2026",
+    title: "Desarrollador Independiente",
+    description:
+      "Desarrollo soluciones digitales a medida para organizaciones: captación de leads, gestión interna y automatizaciones que escalan operaciones.",
+  },
 ];
 
 // --- Portfolio Data ---
-// NOTA SOBRE IMÁGENES DE PROYECTOS:
-// Para usar imágenes locales desde `src/assets/`:
-// 1. Importa la imagen al inicio del archivo frontmatter (entre ---), por ejemplo:
-//    import miProyectoImg from '../assets/mi-proyecto.png';
-// 2. Asigna la propiedad `imageSrc` de esta forma:
-//    imageSrc: miProyectoImg.src
-const portfolioProjects = [
-  { 
-    title: "Dashboard de Competencia", 
-    description: "Cooperativa CFA", 
-    imageSrc: "https://placehold.co/800x600",
-    href: "/portafolio/dashboard-de-competencia"
-  },
-  { 
-    title: "Automatizador de Carruseles", 
-    description: "Instagram", 
-    imageSrc: "https://placehold.co/800x600",
-    href: "/portafolio/automatizador-de-carruseles"
-  },
-  { 
-    title: "Web Personal con Non-Profit", 
-    description: "Sitio personal integrado con iniciativa sin fines de lucro.", 
-    imageSrc: "https://placehold.co/800x600",
-    href: "/portafolio/web-personal-con-non-profit"
-  }
-];
+const portfolioProjects = (await getCollection("portfolio"))
+  .slice(0, 3)
+  .map((post) => {
+    const slug = post.id.replace(/\.(md|mdx)$/, "");
+    return {
+      title: post.data.title,
+      description: post.data.description,
+      imageSrc: post.data.image,
+      href: `/portafolio/${slug}`,
+    };
+  });
 
 // --- Contact Data ---
 const contactTitle = "Construyamos algo <br/>juntos";
-const contactDescription = "¿Tienes un problema que resolver? Escríbeme y empecemos la conversación.";
+const contactDescription =
+  "¿Tienes un problema que resolver? Escríbeme y empecemos la conversación.";
+
+const schemaPerson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sebastián Tamayo Betancur",
+  url: "https://tasy.work/",
+  email: "sebastian@tasy.work",
+  sameAs: ["https://www.linkedin.com/in/sebastian-tamayo-betancur/"],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Medellín",
+    addressCountry: "CO",
+  },
+};
 ---
 
-<Layout>
-  <main class="w-full relative flex flex-col justify-start items-center bg-white overflow-x-hidden">
-
+<Layout
+  title="Sebastián Tamayo | Desarrollador Fullstack (Astro, React)"
+  description="Desarrollador fullstack en Medellín. Construyo páginas web, automatizaciones y sistemas internos para organizaciones. Portafolio, servicios y contacto."
+  ogType="website"
+  schema={schemaPerson}
+>
+  <main
+    class="w-full relative flex flex-col justify-start items-center bg-white overflow-x-hidden"
+  >
     <!-- Hero / Intro -->
-    <div class="w-full pt-24 lg:pt-32">
-      <!--
-        NOTA SOBRE IMÁGEN DE HERO:
-        Para usar una imagen local desde `src/assets/`:
-        1. Importa la imagen al inicio del archivo frontmatter (entre ---), por ejemplo:
-           import miFotoHero from '../assets/mi-foto-hero.png';
-        2. Reemplaza `imageSrc` usando:
-           imageSrc={miFotoHero.src}
-      -->
-      <ContentWithImageSection 
-        imageSrc="https://placehold.co/448x560"
+    <div class="w-full pt-14 lg:pt-10">
+      <ContentWithImageSection
+        imageSrc={tamayoImg.src}
         subtitle={heroSubtitle}
+        subtitleLevel="h1"
+        subtitleVariant="h1"
         paragraph1={heroParagraph}
         buttons={heroButtons}
         imageClassName={heroImageClass}
@@ -95,8 +132,10 @@ const contactDescription = "¿Tienes un problema que resolver? Escríbeme y empe
     </div>
 
     <!-- Journey -->
-    <section class="w-full py-16 lg:py-32 flex justify-center overflow-hidden bg-gradient-to-b from-white via-amber-700/5 to-neutral-100">
-      <TimelineSection 
+    <section
+      class="w-full py-16 lg:py-32 flex justify-center overflow-hidden bg-gradient-to-b from-white via-amber-700/5 to-neutral-100"
+    >
+      <TimelineSection
         overline="MI TRAYECTORIA"
         title="Evolución y Experiencia"
         description="Un recorrido por mi formación y los proyectos que me trajeron hasta acá."
@@ -106,27 +145,40 @@ const contactDescription = "¿Tienes un problema que resolver? Escríbeme y empe
 
     <!-- Portfolio -->
     <section class="w-full bg-white">
-      <PortfolioSection 
+      <PortfolioSection
         overline="PORTAFOLIO"
-        title="Proyectos Seleccionados"
+        title="Proyectos destacados"
         description="Soluciones reales construidas para resolver problemas concretos de organizaciones y marcas."
         projects={portfolioProjects}
       />
     </section>
 
     <!-- Tecnologías -->
-    <section class="w-full py-12 lg:py-24 bg-gradient-to-r from-amber-700/20 via-neutral-100/50 to-amber-700/20 flex justify-center items-start overflow-hidden">
+    <section
+      class="w-full py-12 lg:py-24 bg-gradient-to-r from-amber-700/20 via-neutral-100/50 to-amber-700/20 flex justify-center items-start overflow-hidden"
+    >
       <LogoTickerSection
         client:only="react"
         title="Tecnologías"
         description="Las herramientas con las que construyo soluciones reales."
-        iconNames={['react', 'astro', 'next', 'tailwind', 'typescript', 'node', 'python', 'git', 'figma', 'github']}
+        iconNames={[
+          "react",
+          "astro",
+          "next",
+          "tailwind",
+          "typescript",
+          "node",
+          "python",
+          "git",
+          "figma",
+          "github",
+        ]}
       />
     </section>
 
     <!-- Contact -->
     <section class="w-full border-t border-gray-200">
-      <ContactSection 
+      <ContactSection
         client:load
         title={contactTitle}
         description={contactDescription}
@@ -137,20 +189,26 @@ const contactDescription = "¿Tienes un problema que resolver? Escríbeme y empe
     </section>
 
     <!-- Footer -->
-    <footer class="w-full py-10 bg-white border-t border-gray-200 flex flex-col justify-center items-center gap-3">
-      <p class="text-center text-neutral-900 text-sm font-semibold font-sans">Sebastián Tamayo Betancur</p>
-      <div class="flex flex-wrap justify-center items-center gap-4 text-neutral-400 text-sm font-normal font-sans">
+    <footer
+      class="w-full py-10 bg-white border-t border-gray-200 flex flex-col justify-center items-center gap-3"
+    >
+      <p class="text-center text-neutral-900 text-sm font-semibold font-sans">
+        Sebastián Tamayo Betancur
+      </p>
+      <div
+        class="flex flex-wrap justify-center items-center gap-4 text-neutral-400 text-sm font-normal font-sans"
+      >
         <span>sebastian@tasy.work</span>
         <span class="text-neutral-200">|</span>
         <span>Medellín, Colombia</span>
         <span class="text-neutral-200">|</span>
         <span>+57 311 356 5679</span>
       </div>
-      <p class="text-center text-neutral-400 text-xs font-normal font-sans pt-2">
+      <p
+        class="text-center text-neutral-400 text-xs font-normal font-sans pt-2"
+      >
         &copy; 2026 Sebastián Tamayo Betancur. Todos los derechos reservados.
       </p>
     </footer>
-
   </main>
 </Layout>
-

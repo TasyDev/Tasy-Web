@@ -10,6 +10,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test:ui": "playwright test",
+    "test:ui:headed": "playwright test --headed",
+    "test:ui:debug": "playwright test --debug",
+    "test:ui:report": "playwright show-report",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -31,6 +35,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
+    "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^10.4.0",
     "@storybook/addon-docs": "^10.4.0",
     "@storybook/addon-mcp": "^0.6.0",

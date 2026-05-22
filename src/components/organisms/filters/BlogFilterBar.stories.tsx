@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    categories: ['All Posts', 'Design', 'Development', 'Business'],
-    activeCategory: 'All Posts',
+    categories: ['Todos', 'Diseño', 'Desarrollo', 'Negocio'],
+    activeCategory: 'Todos',
   },
 };

@@ -11,9 +11,9 @@ export interface PortfolioSectionProps {
 }
 
 export const PortfolioSection = ({
-  overline = "PORTFOLIO",
-  title = "Selected Work",
-  description = "A showcase of my recent premium digital work, focusing on user experience, conversion, and visual impact.",
+  overline = "PORTAFOLIO",
+  title = "Proyectos seleccionados",
+  description = "Una muestra de proyectos digitales recientes, enfocados en experiencia de usuario, conversión e impacto visual.",
   projects = [
     { title: "Fintech Dashboard", description: "A modern, clean SaaS dashboard for financial management.", imageSrc: "https://placehold.co/800x600" },
     { title: "E-commerce Platform", description: "Minimalist fashion e-commerce website with seamless checkout.", imageSrc: "https://placehold.co/800x600" },
@@ -42,7 +42,7 @@ export const PortfolioSection = ({
       <div className="w-full flex flex-col items-center gap-6">
         {/* Mobile Swipe Indicator */}
         <div className="md:hidden flex items-center gap-2 text-amber-700/60 text-sm font-medium animate-pulse">
-          <span>Swipe to view projects</span>
+          <span>Desliza para ver proyectos</span>
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

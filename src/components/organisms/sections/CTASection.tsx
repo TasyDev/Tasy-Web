@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export interface CTASectionProps {
@@ -7,29 +7,34 @@ export interface CTASectionProps {
   buttonText?: string;
 }
 
-export const CTASection = ({ 
-  title = "Ready to elevate your digital presence?", 
-  description = "Join hundreds of forward-thinking brands that trust our design philosophy. Let's build something extraordinary together.",
-  buttonText = "Get Started"
+export const CTASection = ({
+  title = "¿Hablemos?",
+  description = "Tengo cupos limitados para nuevos clientes en 2026. Si buscas transformar tu presencia digital con un equipo que piensa en producto, estrategia y ejecución, este es el momento.",
+  buttonText = "Enviar"
 }: CTASectionProps) => {
+  const [hydrated, setHydrated] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<{ email: string }>();
-  
-  const onSubmit = async (data: {email: string}) => {
-  const res = await fetch("https://formspree.io/f/xnjrjwnp", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
 
-  if (res.ok) {
-    alert("Message sent successfully! We'll get back to you soon.");
-  } else {
-    alert("Error sending message. Please try again later.");
-  }
-};
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  const onSubmit = async (data: { email: string }) => {
+    const res = await fetch("https://formspree.io/f/xnjrjwnp", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      alert("Message sent successfully! We'll get back to you soon.");
+    } else {
+      alert("Error sending message. Please try again later.");
+    }
+  };
 
   return (
     <div className="w-full max-w-[1000px] px-8 pt-40 pb-48 mx-auto">
@@ -37,7 +42,7 @@ export const CTASection = ({
         {/* Background Decorative Circles */}
         <div className="w-64 h-64 left-[680px] top-0 absolute bg-white/20 rounded-full blur-[32px]" />
         <div className="w-64 h-64 left-0 top-[204px] absolute bg-black/40 rounded-full blur-[32px]" />
-        
+
         <div className="flex flex-col justify-start items-center gap-6 relative z-10">
           <div className="px-4 md:px-14 flex flex-col justify-start items-center">
             <div className="text-center justify-center text-white text-3xl md:text-5xl font-bold font-sans leading-tight md:leading-[60px]">
@@ -49,17 +54,22 @@ export const CTASection = ({
               {description}
             </div>
           </div>
-          
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-96 pt-4 flex flex-col justify-start items-start">
+
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            data-testid="cta-email-form"
+            data-hydrated={hydrated ? 'true' : undefined}
+            className="w-full max-w-96 pt-4 flex flex-col justify-start items-start"
+          >
             <div className="w-full p-1 bg-white rounded-full inline-flex justify-start items-start gap-2">
               <div className="flex-1 self-stretch px-4 py-2 flex justify-center items-center">
-                <input 
+                <input
                   {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                  placeholder="Enter your email"
+                  placeholder="Pon tu correo"
                   className="flex-1 text-neutral-900 text-base font-normal font-sans leading-6 bg-transparent outline-none placeholder:text-neutral-400"
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 className="px-7 py-3.5 bg-neutral-900 rounded-full flex justify-center items-center cursor-pointer hover:bg-neutral-800 transition-colors"
               >
@@ -68,7 +78,7 @@ export const CTASection = ({
                 </div>
               </button>
             </div>
-            {errors.email && <span className="text-white text-xs mt-2 ml-4">Please enter a valid email</span>}
+            {errors.email && <span className="text-white text-xs mt-2 ml-4">Correo invalido</span>}
           </form>
         </div>
       </div>

@@ -1,48 +1,58 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import { PageHero } from '../../components/organisms/sections/PageHero';
-import { BlogList } from '../../components/organisms/grids/BlogList';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { PageHero } from "../../components/organisms/sections/PageHero";
+import { BlogList } from "../../components/organisms/grids/BlogList";
 
-// Fetch actual data from content collections
-const allPosts = await getCollection('portfolio');
+const allPosts = await getCollection("portfolio");
 
-// Map to the format expected by BlogList
-const portfolioPosts = allPosts.map(post => {
-  const slug = post.id.replace(/\.(md|mdx)$/, '');
+const portfolioPosts = allPosts.map((post) => {
+  const slug = post.id.replace(/\.(md|mdx)$/, "");
   return {
     id: post.id,
-    image: post.data.image || 'https://placehold.co/396x223',
-    category: post.data.category || 'GENERAL',
-    date: post.data.date || 'Jan 1, 2024',
+    image: post.data.image || "https://placehold.co/396x223",
+    category: post.data.category || "GENERAL",
+    date: "",
     title: post.data.title,
     description: post.data.description,
-    href: `/portafolio/${slug}`
+    href: `/portafolio/${slug}`,
   };
 });
 
-// Extract unique categories and add 'Todos'
-const uniqueCategories = [...new Set(portfolioPosts.map(p => p.category))];
+const uniqueCategories = [...new Set(portfolioPosts.map((p) => p.category))];
 const categories = ["Todos", ...uniqueCategories];
+
+const schemaCollectionPage = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Portafolio de Proyectos | Tasy Web",
+  url: "https://tasy.work/portafolio/",
+};
 ---
 
-<Layout title="Portafolio de Proyectos | Tasy Web">
+<Layout
+  title="Portafolio de Proyectos | Tasy Web"
+  description="Proyectos destacados de desarrollo web premium, automatización de procesos y optimización de flujos de trabajo."
+  ogType="website"
+  schema={schemaCollectionPage}
+>
   <main class="w-full bg-white flex flex-col justify-start items-center pb-32">
-    <PageHero 
+    <PageHero
       badge="PORTAFOLIO"
       titleNormal="Proyectos destacados y"
       titleHighlight="Soluciones"
       description="Una selección detallada de mi trabajo en desarrollo web premium, automatización de procesos y optimización de flujos de trabajo."
     />
-    
+
     <div class="w-full max-w-[1200px] px-8 pt-12 flex flex-col justify-start items-center">
-      <BlogList 
-        client:load 
-        items={portfolioPosts} 
-        categories={categories} 
+      <BlogList
+        client:load
+        items={portfolioPosts}
+        categories={categories}
         searchPlaceholder="Buscar proyectos..."
         loadMoreLabel="Cargar más proyectos"
       />
     </div>
   </main>
 </Layout>
+

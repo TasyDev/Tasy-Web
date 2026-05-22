@@ -28,3 +28,15 @@ body {
   animation: marquee var(--marquee-duration, 25s) linear infinite;
   will-change: transform;
 }
+
+.mdx-content a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklab, var(--color-brand) 45%, transparent);
+  font-weight: 600;
+}
+
+.mdx-content a:hover {
+  text-decoration-color: color-mix(in oklab, var(--color-brand) 70%, transparent);
+}

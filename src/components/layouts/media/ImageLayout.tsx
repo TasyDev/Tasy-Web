@@ -12,6 +12,16 @@ export interface ImageLayoutProps {
    */
   alt?: string;
   /**
+   * Intrinsic width (prevents CLS)
+   * @default 512
+   */
+  width?: number;
+  /**
+   * Intrinsic height (prevents CLS)
+   * @default 640
+   */
+  height?: number;
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -20,6 +30,8 @@ export interface ImageLayoutProps {
 export const ImageLayout = ({ 
   src = "https://placehold.co/512x640", 
   alt = "Image Template",
+  width = 512,
+  height = 640,
   className = ''
 }: ImageLayoutProps) => {
   return (
@@ -27,7 +39,11 @@ export const ImageLayout = ({
       <img 
         className="w-full h-full relative rounded-3xl shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)] shadow-lg object-cover" 
         src={src} 
-        alt={alt} 
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

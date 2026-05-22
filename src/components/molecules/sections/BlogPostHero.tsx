@@ -1,6 +1,5 @@
-import React from 'react';
-import { Heading } from '../../atoms/text/Heading';
-import { Overline } from '../../atoms/text/Overline';
+import React from "react";
+import { Heading } from "../../atoms/text/Heading";
 
 export interface BlogPostHeroProps {
   category: string;
@@ -14,16 +13,16 @@ export interface BlogPostHeroProps {
   };
 }
 
-export const BlogPostHero = ({ 
-  category = "DESIGN", 
-  date = "OCTOBER 12, 2023", 
+export const BlogPostHero = ({
+  category = "DESIGN",
+  date = "OCTOBER 12, 2023",
   title = "The Future of Premium Digital Interfaces",
   subtitle = "Exploring how modern startups are using bold typography, oxidized orange, and abstract shapes to dominate the market.",
   author = {
     name: "Sarah Jenkins",
     role: "Lead Designer",
-    image: "https://placehold.co/44x44"
-  }
+    image: "https://placehold.co/44x44",
+  },
 }: BlogPostHeroProps) => {
   return (
     <div className="w-full px-8 pt-32 pb-16 flex flex-col justify-center items-center">
@@ -43,7 +42,7 @@ export const BlogPostHero = ({
             </div>
           </div>
         </div>
-        
+
         <div className="px-4 md:px-24 flex flex-col justify-start items-center">
           <Heading level={1} variant="display" className="text-center">
             {title}
@@ -57,7 +56,30 @@ export const BlogPostHero = ({
             </div>
           </div>
         </div>
+
+        <div className="pt-8 flex justify-center">
+          <div className="inline-flex items-center gap-3">
+            <img
+              src={author?.image}
+              alt={author?.name}
+              className="w-11 h-11 rounded-full object-cover outline outline-1 outline-offset-[-1px] outline-gray-200"
+              width={44}
+              height={44}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="flex flex-col">
+              <div className="text-neutral-900 text-sm font-semibold font-sans leading-5">
+                {author?.name}
+              </div>
+              <div className="text-neutral-400 text-sm font-normal font-sans leading-5">
+                {author?.role}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+

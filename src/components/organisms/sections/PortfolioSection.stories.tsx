@@ -15,9 +15,9 @@ type Story = StoryObj<typeof PortfolioSection>;
 
 export const Default: Story = {
   args: {
-    overline: "PORTFOLIO",
-    title: "Selected Work",
-    description: "A showcase of my recent premium digital work, focusing on user experience, conversion, and visual impact.",
+    overline: "PORTAFOLIO",
+    title: "Proyectos seleccionados",
+    description: "Una muestra de proyectos digitales recientes, enfocados en experiencia de usuario, conversión e impacto visual.",
     projects: [
       { title: "Fintech Dashboard", description: "A modern, clean SaaS dashboard for financial management.", imageSrc: "https://placehold.co/800x600" },
       { title: "E-commerce Platform", description: "Minimalist fashion e-commerce website with seamless checkout.", imageSrc: "https://placehold.co/800x600" },

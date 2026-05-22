@@ -1,17 +1,86 @@
 ---
 import { Navbar } from '../components/layouts/navigation/Navbar';
 import '../styles/global.css';
+
+type SeoSchema = Record<string, unknown> | Array<Record<string, unknown>> | string;
+
+export interface LayoutProps {
+	title?: string;
+	description?: string;
+	canonical?: string;
+	ogImage?: string;
+	ogType?: string;
+	twitterCard?: 'summary' | 'summary_large_image';
+	robots?: string;
+	noindex?: boolean;
+	lang?: string;
+	schema?: SeoSchema;
+}
+
+const {
+	title,
+	description,
+	canonical,
+	ogImage,
+	ogType = 'website',
+	twitterCard = 'summary_large_image',
+	robots,
+	noindex = false,
+	lang = 'es',
+	schema,
+} = Astro.props as LayoutProps;
+
+const siteName = 'Tasy Web';
+
+function toAbsoluteUrl(input?: string) {
+	if (!input) return undefined;
+	if (/^https?:\/\//i.test(input)) return input;
+	if (!Astro.site) return input;
+	return new URL(input.startsWith('/') ? input : `/${input}`, Astro.site).toString();
+}
+
+function canonicalFromAstroUrl() {
+	if (!Astro.site) return Astro.url?.toString();
+	const pathname = Astro.url?.pathname ?? '/';
+	// Prefer trailing slash for directory-like routes.
+	const normalizedPathname = pathname.endsWith('/') ? pathname : `${pathname}/`;
+	return new URL(normalizedPathname, Astro.site).toString();
+}
+
+const pageTitle = title ? `${title}` : siteName;
+const canonicalUrl = toAbsoluteUrl(canonical) ?? canonicalFromAstroUrl();
+const ogImageUrl = toAbsoluteUrl(ogImage);
+const robotsValue = robots ?? (noindex ? 'noindex,nofollow' : 'index,follow');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Tasy Web</title>
+		<title>{pageTitle}</title>
+		<meta name="robots" content={robotsValue} />
+		{description ? <meta name="description" content={description} /> : null}
+		{canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
+
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={pageTitle} />
+		{description ? <meta property="og:description" content={description} /> : null}
+		{canonicalUrl ? <meta property="og:url" content={canonicalUrl} /> : null}
+		{ogType ? <meta property="og:type" content={ogType} /> : null}
+		{ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+
+		<meta name="twitter:card" content={twitterCard} />
+		<meta name="twitter:title" content={pageTitle} />
+		{description ? <meta name="twitter:description" content={description} /> : null}
+		{ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
+
+		{schema ? (
+			<script type="application/ld+json" set:html={typeof schema === 'string' ? schema : JSON.stringify(schema)} />
+		) : null}
 	</head>
 	<body>
 		<div class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
