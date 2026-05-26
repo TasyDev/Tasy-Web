@@ -9,11 +9,11 @@ export const Navbar = () => {
         Inicio
       </a>
 
-      <a href="/non-profit" className="text-white/90 text-sm font-medium font-sans leading-5 whitespace-nowrap hover:opacity-80 transition-opacity">
+      <a href="/non-profit/" className="text-white/90 text-sm font-medium font-sans leading-5 whitespace-nowrap hover:opacity-80 transition-opacity">
         Para Fundaciones
       </a>
 
-      <a href="/portafolio">
+      <a href="/portafolio/">
         <Button variant="dark" label="Portafolio" className="!px-4 !py-2 text-sm" />
       </a>
 
