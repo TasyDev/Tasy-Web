@@ -35,3 +35,11 @@ storybook-static
 test-results
 
 playwright-report
+
+# agent config & skills (personal, not project files)
+.agents/
+.claude/
+skills-lock.json
+
+# generated artifacts
+promo-video/
