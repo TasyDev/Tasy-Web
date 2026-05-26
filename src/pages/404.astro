@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Página no encontrada | Tasy Web"
+  description="La página que buscas no existe o fue movida. Regresa al inicio para encontrar lo que necesitas."
+>
+  <main class="w-full min-h-screen flex flex-col justify-center items-center bg-white px-4">
+    <div class="max-w-md text-center space-y-6">
+      <h1 class="text-8xl font-bold text-amber-700">404</h1>
+      <h2 class="text-2xl font-semibold text-neutral-900">
+        Página no encontrada
+      </h2>
+      <p class="text-neutral-500 text-base leading-relaxed">
+        La página que estás buscando no existe, fue movida o está temporalmente
+        fuera de servicio. Revisa la URL o vuelve al inicio.
+      </p>
+      <a
+        href="/"
+        class="inline-block mt-4 px-6 py-3 bg-amber-700 text-white font-medium rounded-lg hover:bg-amber-800 transition-colors"
+      >
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+</Layout>
