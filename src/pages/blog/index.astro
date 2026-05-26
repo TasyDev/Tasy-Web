@@ -15,7 +15,7 @@ const blogPosts = allPosts.map((post) => {
     date: post.data.date || "",
     title: post.data.title,
     description: post.data.description,
-    href: `/blog/${slug}`,
+    href: `/blog/${slug}/`,
   };
 });
 
@@ -27,6 +27,9 @@ const schemaBlog = {
   "@type": "Blog",
   name: "Blog de Tecnología e Impacto | Tasy Web",
   url: "https://tasy.work/blog/",
+  description:
+    "Artículos y recursos sobre cómo potenciar fundaciones y organizaciones sin fines de lucro con desarrollo web, automatización y soluciones digitales.",
+  image: "https://tasy.work/og-image.jpg",
 };
 ---
 

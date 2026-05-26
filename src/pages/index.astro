@@ -85,7 +85,7 @@ const portfolioProjects = (await getCollection("portfolio"))
       title: post.data.title,
       description: post.data.description,
       imageSrc: post.data.image,
-      href: `/portafolio/${slug}`,
+      href: `/portafolio/${slug}/`,
     };
   });
 
@@ -158,7 +158,7 @@ const schemaPerson = {
       class="w-full py-12 lg:py-24 bg-gradient-to-r from-amber-700/20 via-neutral-100/50 to-amber-700/20 flex justify-center items-start overflow-hidden"
     >
       <LogoTickerSection
-        client:only="react"
+        client:load
         title="Tecnologías"
         description="Las herramientas con las que construyo soluciones reales."
         iconNames={[

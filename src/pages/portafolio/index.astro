@@ -15,7 +15,7 @@ const portfolioPosts = allPosts.map((post) => {
     date: "",
     title: post.data.title,
     description: post.data.description,
-    href: `/portafolio/${slug}`,
+    href: `/portafolio/${slug}/`,
   };
 });
 
@@ -27,6 +27,9 @@ const schemaCollectionPage = {
   "@type": "CollectionPage",
   name: "Portafolio de Proyectos | Tasy Web",
   url: "https://tasy.work/portafolio/",
+  description:
+    "Proyectos destacados de desarrollo web premium, automatización de procesos y optimización de flujos de trabajo.",
+  image: "https://tasy.work/og-image.jpg",
 };
 ---
 
